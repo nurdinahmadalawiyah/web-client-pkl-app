@@ -66,6 +66,7 @@ const TablePengajuan = () => {
           width: "100%",
           px: 0,
         }}
+        selectionMode="single"
       >
         <Table.Header>
           <Table.Column>Nama</Table.Column>
@@ -106,12 +107,12 @@ const TablePengajuan = () => {
               </Table.Cell>
               <Table.Cell>
                 <Text b size={14} css={{ tt: "capitalize", color: "$accents7" }}>
-                  {data.tanggal_mulai}
+                {new Date(data.tanggal_mulai).toLocaleDateString("id-ID")}
                 </Text>
               </Table.Cell>
               <Table.Cell>
                 <Text b size={14} css={{ tt: "capitalize", color: "$accents7" }}>
-                  {data.tanggal_selesai}
+                {new Date(data.tanggal_selesai).toLocaleDateString("id-ID")}
                 </Text>
               </Table.Cell>
               <Table.Cell>

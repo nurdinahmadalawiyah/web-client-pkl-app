@@ -13,11 +13,11 @@ export const CardWelcomeAkademik = () => {
          }}
       >
          <Card.Body css={{py: '$10'}}>
-            <Flex css={{gap: '$5'}}>
             <Text css={{color: 'white', textAlign: 'center', fontSize: '64px', fontWeight: 'bold'}}>
-                  Selamat Datang di Dashboard Akademik Aplikasi Peraktik Kerja Lapangan Politeknik TEDC Bandung
+                  Selamat Datang di Dashboard Akademik<br />
+                  Aplikasi Peraktik Kerja Lapangan<br />
+                  Politeknik TEDC Bandung
             </Text>
-            </Flex>
          </Card.Body>
       </Card>
    );

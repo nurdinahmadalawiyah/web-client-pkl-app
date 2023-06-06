@@ -65,6 +65,7 @@ export const TableMahasiswa = () => {
           width: "100%",
           px: 0,
         }}
+        selectionMode="single"
       >
         <Table.Header>
           <Table.Column>Nama</Table.Column>
