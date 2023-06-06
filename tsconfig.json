@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "target": "es2017",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "incremental": true
+  },
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "components/akademik/pengajuan-pkl/table-pengajuan.jsx", "data/api-service.js", "components/akademik/pengajuan-pkl/data-pengajuan-pkl.js", "components/akademik/pengajuan-pkl/index.jsx", "components/akademik/pengajuan-pkl/render-data-pengajuan.jsx", "components/akademik/kelola-mahasiswa/data-mahasiswa.js", "components/akademik/kelola-mahasiswa/tabel-mahasiswa.jsx", "components/akademik/kelola-mahasiswa/index.jsx", "pages/pengajuan-pkl.tsx", "components/akademik/kelola-mahasiswa/hapus-mahasiswa.jsx", "components/akademik/kelola-pembimbing/table-pembimbing.jsx", "components/akademik/kelola-pembimbing/index.jsx", "components/akademik/kelola-pembimbing/hapus-pembimbing.jsx", "components/akademik/login-akademik/index.jsx", "components/akademik/login-akademik/card-login-akademik.jsx", "components/akademik/dashboard/index.jsx", "components/akademik/dashboard/card-welcome-akademik.jsx", "components/akademik/detail-pengajuan-pkl/render-data-detail-pengajuan-pkl.jsx", "components/akademik/detail-pengajuan-pkl/mahasiswa-icon.jsx", "components/akademik/detail-pengajuan-pkl/index.jsx"],
+  "exclude": ["node_modules"]
+}
