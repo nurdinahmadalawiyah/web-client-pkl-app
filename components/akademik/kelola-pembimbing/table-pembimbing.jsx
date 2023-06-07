@@ -117,7 +117,7 @@ export const TablePembimbing = () => {
                   </Tooltip>
                 </Col>
                 <Col css={{ d: "flex" }}>
-                  <HapusPembimbing />
+                  <HapusPembimbing data={pembimbing} />
                 </Col>
               </Row>
               </Table.Cell>
