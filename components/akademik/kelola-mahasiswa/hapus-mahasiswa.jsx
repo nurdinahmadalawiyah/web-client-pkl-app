@@ -14,7 +14,7 @@ export const HapusMahasiswa = () => {
     return (
         <div>
             <Tooltip
-                content="Delete user"
+                content="Hapus Mahasiswa"
                 color="error"
                 onClick={handler}
                 >

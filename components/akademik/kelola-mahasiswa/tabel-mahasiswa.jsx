@@ -121,18 +121,7 @@ export const TableMahasiswa = () => {
                 css={{ gap: "$8", "@md": { gap: 0 } }}
               >
                 <Col css={{ d: "flex" }}>
-                  <Tooltip content="Tambah User">
-                  <Link href="/tambah-mahasiswa">
-                    <IconButton onClick={() => console.log("View user", mahasiswa.id_mahasiswa)}>
-                      <Text b size={14} css={{ tt: "capitalize", color: "$green600" }}>
-                        Tambah
-                      </Text>
-                    </IconButton>
-                  </Link>
-                  </Tooltip>
-                </Col>
-                <Col css={{ d: "flex" }}>
-                  <Tooltip content="Edit user">
+                  <Tooltip content="Edit Mahasiswa">
                     <Link href="/edit-mahasiswa">
                     <IconButton onClick={() => console.log("Edit user", mahasiswa.id_mahasiswa)}>
                       <Text b size={14} css={{ tt: "capitalize", color: "$yellow600" }}>

@@ -1,6 +1,6 @@
-import { Button, Card, Input, Text } from "@nextui-org/react";
+import { Button, Card, Input, Text, Grid, Tooltip } from "@nextui-org/react";
 import Link from "next/link";
-import React, { useEffect } from 'react';
+import React, { useEffect } from "react";
 import { Flex } from "../../styles/flex";
 import { TablePembimbing } from "./table-pembimbing";
 import {
@@ -8,10 +8,10 @@ import {
   Crumb,
   CrumbLink,
 } from "../../breadcrumb/breadcrumb.styled";
-import { useRouter } from 'next/router';
+import { useRouter } from "next/router";
 
 export const KelolaPembimbing = () => {
-  const router = useRouter()
+  const router = useRouter();
 
   useEffect(() => {
     const accessToken = localStorage.getItem("accessToken");
@@ -46,11 +46,26 @@ export const KelolaPembimbing = () => {
           <CrumbLink href="#">List</CrumbLink>
         </Crumb>
       </Breadcrumbs>
-      <Text h3>Data Pembimbing</Text>
+      <Grid.Container>
+        <Grid xs={6}>
+          <Text h3>Data Pembimbing</Text>
+        </Grid>
+        <Grid xs={6}>
+          <Button
+            color="success"
+            auto
+            css={{ marginLeft: "auto" }}
+            onClick={() => router.push("/tambah-pembimbing")}
+          >
+            <Tooltip content="Tambah Pembimbing">Tambah</Tooltip>
+          </Button>
+        </Grid>
+      </Grid.Container>
       <Card
         css={{
           borderRadius: "$xl",
           px: "$6",
+          mt: "$6",
         }}
       >
         <Card.Body css={{ py: "$10" }}>
