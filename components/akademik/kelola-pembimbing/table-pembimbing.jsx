@@ -4,12 +4,13 @@ import { Box } from "../../styles/box";
 import {HapusPembimbing} from './hapus-pembimbing';
 import { IconButton } from "../../table/table.styled";
 import axios from "axios";
-import Link from "next/link";
 import { InfoCircle } from "react-iconly";
+import { useRouter } from 'next/router';
 
 export const TablePembimbing = () => {
   const [data, setData] = useState([]);
   const [serverError, setServerError] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -32,6 +33,13 @@ export const TablePembimbing = () => {
 
     fetchData();
   }, []);
+
+  const handleEditClick = (pembimbing) => {
+    router.push({
+      pathname: `/edit-pembimbing`,
+      query: { pembimbing: JSON.stringify(pembimbing) },
+    });
+  };
 
   if (serverError) {
     return (
@@ -75,7 +83,7 @@ export const TablePembimbing = () => {
         </Table.Header>
         <Table.Body>
           {data.map((pembimbing) => (
-            <Table.Row key={pembimbing.id_pengajuan}>
+            <Table.Row key={pembimbing.id_pembimbing}>
               <Table.Cell>
                 <Text b size={16} css={{ tt: "capitalize", color: "$accents7" }}>
                     {pembimbing.nama}
@@ -99,13 +107,13 @@ export const TablePembimbing = () => {
               >
                 <Col css={{ d: "flex" }}>
                   <Tooltip content="Edit Pembimbing">
-                    <Link href="/edit-pembimbing">
-                    <IconButton onClick={() => console.log("Edit user", pembimbing.id_pembimbing)}>
+                    {/* <Link href="/edit-pembimbing"> */}
+                    <IconButton onClick={() => handleEditClick(pembimbing)}>
                       <Text b size={14} css={{ tt: "capitalize", color: "$yellow600" }}>
                         Edit
                       </Text>
                     </IconButton>
-                    </Link>
+                    {/* </Link> */}
                   </Tooltip>
                 </Col>
                 <Col css={{ d: "flex" }}>
