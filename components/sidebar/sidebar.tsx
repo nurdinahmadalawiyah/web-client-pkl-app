@@ -133,8 +133,12 @@ export const SidebarWrapper = () => {
                     }
                     href="dashboard-prodi"
                   />
-
-
+                  <SidebarItemProdi
+                    title="Data PKL Mahasiswa"
+                    icon={undefined}
+                    isActive={router.pathname === "/data-pkl-mahasiswa" || router.pathname == "/detail-data-pkl-mahasiswa"}
+                    href="data-pkl-mahasiswa"
+                  />
                 </>
               )}
             </SidebarMenu>
