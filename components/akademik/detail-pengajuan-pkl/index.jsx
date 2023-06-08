@@ -1,6 +1,6 @@
 import {Card, Text} from "@nextui-org/react";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect } from 'react';
 import { Flex } from "../../styles/flex";
 import {
   Breadcrumbs,
@@ -8,8 +8,20 @@ import {
   CrumbLink,
 } from "../../breadcrumb/breadcrumb.styled";
 import { ContentDetailPengajuanPkl } from "./content-detail-pengajuan-pkl";
+import { useRouter } from 'next/router';
 
 export const DetailPengajuanPkl = () => {
+  const router = useRouter();
+
+  useEffect(() => {
+     const accessToken = localStorage.getItem('accessToken');
+     const role = localStorage.getItem('role');
+
+     if (!accessToken || role !== "Akademik") {
+        router.push('/login-akademik');
+     }
+  })
+
   return (
     <Flex
       css={{

@@ -20,6 +20,7 @@ export const Layout = ({children}: Props) => {
    const router = useRouter();
 
    const isLoginAkademikPage = router.pathname == "/login-akademik"
+   const isLoginProdiPage = router.pathname == "/login-prodi"
 
    return (
       <SidebarContext.Provider
@@ -29,9 +30,10 @@ export const Layout = ({children}: Props) => {
          }}
       >
          <WrapperLayout>
-            {!isLoginAkademikPage && <SidebarWrapper />}
-            {!isLoginAkademikPage && <NavbarWrapper>{children}</NavbarWrapper>}
-            {isLoginAkademikPage && children}
+            {!isLoginAkademikPage && !isLoginProdiPage && <SidebarWrapper />}
+            {!isLoginAkademikPage && !isLoginProdiPage && <NavbarWrapper>{children}</NavbarWrapper>}
+            {isLoginAkademikPage  && !isLoginProdiPage && children}
+            {isLoginProdiPage && children}
          </WrapperLayout>
       </SidebarContext.Provider>
    );

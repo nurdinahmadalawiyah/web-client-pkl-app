@@ -1,6 +1,5 @@
 import { Button, Card, Input, Text } from "@nextui-org/react";
 import Link from "next/link";
-import React from "react";
 import { Flex } from "../../styles/flex";
 import {
     Breadcrumbs,
@@ -8,8 +7,20 @@ import {
     CrumbLink,
 } from "../../breadcrumb/breadcrumb.styled";
 import {FormInputPembimbing} from "./form-input-pembimbing"
+import { useRouter } from 'next/router';
 
 export const TambahPembimbing = () => {
+    const router = useRouter()
+
+    useEffect(() => {
+      const accessToken = localStorage.getItem("accessToken");
+      const role = localStorage.getItem("role");
+  
+      if (!accessToken || role !== "Akademik") {
+        router.push("/login-akademik");
+      }
+    });
+
     return (
         <Flex
             css={{

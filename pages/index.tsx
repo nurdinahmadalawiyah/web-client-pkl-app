@@ -1,8 +1,8 @@
 import type {NextPage} from 'next';
-import {Content} from '../components/home/content';
+import { DashboardAkademik } from '../components/akademik/dashboard';
 
 const Home: NextPage = () => {
-   return <Content />;
+   return <DashboardAkademik />;
 };
 
 export default Home;

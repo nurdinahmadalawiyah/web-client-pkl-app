@@ -5,7 +5,7 @@ import { User, Lock, InfoCircle } from "react-iconly";
 import Link from "next/link";
 import axios from "axios";
 
-export const CardLoginAkademik = () => {
+export const CardLoginProdi = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [loginError, setLoginError] = useState("");
@@ -30,7 +30,7 @@ export const CardLoginAkademik = () => {
     setIsLoading(true)
     try {
       const result = await axios.post(
-        `${process.env.API_BASE_URL}/akademik/login`,
+        `${process.env.API_BASE_URL}/prodi/login`,
         {
           username,
           password,
@@ -52,7 +52,7 @@ export const CardLoginAkademik = () => {
       localStorage.setItem('accessToken', data.access_token);
       localStorage.setItem('role', data.role);
 
-      window.location.href = "/dashboard-akademik";
+      window.location.href = "/dashboard-prodi";
     } catch (error) {
       console.error("Login gagal", error);
       setLoginError("Login Gagal, Silahkan Coba Lagi");
@@ -78,36 +78,36 @@ export const CardLoginAkademik = () => {
               textAlign: "center",
             }}
           >
-            Login<span style={{ color: "#1E88E5" }}>.</span>
+            Login<span style={{ color: "#17C964" }}>.</span>
           </Text>
         </Flex>
         <Flex css={{ gap: "$6", py: "$4" }} align="center">
           <Text span css={{ textAlign: "center" }}>
-            Silahkan login menggunakan akun akademik anda
+            Silahkan login menggunakan akun prodi anda
           </Text>
         </Flex>
         <Spacer y={1.0} />
         <Input
-          contentLeft={<User set="bold" primaryColor="#1E88E5" />}
+          contentLeft={<User set="bold" primaryColor="#17C964" />}
           size="lg"
           bordered
-          color="primary"
+          color="success"
           labelPlaceholder="Username"
           value={username}
           onChange={handleUsernameChange}
         />
         <Spacer y={1.6} />
         <Input.Password
-          contentLeft={<Lock set="bold" primaryColor="#1E88E5" />}
+          contentLeft={<Lock set="bold" primaryColor="#17C964" />}
           size="lg"
           bordered
-          color="primary"
+          color="success"
           labelPlaceholder="Password"
           value={password}
           onChange={handlePasswordChange}
         />
         <Spacer y={2.0} />
-        <Button color="primary" onClick={handleLogin} disable={isLoading}>
+        <Button color="success" onClick={handleLogin} disable={isLoading}>
         {isLoading ? <Loading color="currentColor" size="sm" /> : "Login"}
         </Button>
         {loginError && (
@@ -127,9 +127,9 @@ export const CardLoginAkademik = () => {
         )}
         <Spacer y={1.6} />
         <Flex css={{ gap: "$6", py: "$4" }} justify={"center"}>
-          <Link href="/login-prodi" passHref>
+          <Link href="/login-akademik" passHref>
             <a style={{ textDecoration: "none", color: "inherit" }}>
-              Login Sebagai Prodi
+              Login Sebagai Akademik
             </a>
           </Link>
         </Flex>

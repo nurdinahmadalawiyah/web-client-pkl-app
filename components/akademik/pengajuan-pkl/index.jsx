@@ -17,7 +17,7 @@ const PengajuanPkl = () => {
     const accessToken = localStorage.getItem("accessToken");
     const role = localStorage.getItem("role");
 
-    if (!accessToken || !role) {
+    if (!accessToken || role !== "Akademik") {
       router.push("/login-akademik");
     }
   });

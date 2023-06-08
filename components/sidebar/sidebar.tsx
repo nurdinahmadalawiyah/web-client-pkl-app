@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Box } from "../styles/box";
 import { Sidebar } from "./sidebar.styles";
 import { Flex } from "../styles/flex";
@@ -19,10 +19,24 @@ import { useSidebarContext } from "../layout/layout-context";
 import { ChangeLogIcon } from "../icons/sidebar/changelog-icon";
 import { useRouter } from "next/router";
 import { Text } from "@nextui-org/react";
+import { SidebarItemProdi } from "./sidebar-item-prodi";
 
 export const SidebarWrapper = () => {
   const router = useRouter();
   const { collapsed, setCollapsed } = useSidebarContext();
+  const [showMenuAkademik, setShowMenuAkdemik] = useState(false);
+  const [showMenuProdi, setShowMenuProdi] = useState(false);
+
+  useEffect(() => {
+    const accessToken = localStorage.getItem("accessToken");
+    const role = localStorage.getItem("role");
+
+    if (!accessToken || role === "Akademik") {
+      setShowMenuAkdemik(true);
+    } else if (!accessToken || role === "Prodi") {
+      setShowMenuProdi(true);
+    }
+  }, []);
 
   return (
     <Box
@@ -55,40 +69,76 @@ export const SidebarWrapper = () => {
         <Flex direction={"column"} justify={"between"} css={{ height: "100%" }}>
           <Sidebar.Body className="body sidebar">
             <SidebarMenu title="">
-              <SidebarItem
-                title="Dashboard"
-                icon={undefined}
-                isActive={router.pathname === "/dashboard-akademik"}
-                href="dashboard-akademik"
-              />
-              <SidebarItem
-                title="Pengajuan PKL"
-                icon={undefined}
-                isActive={router.pathname === "/pengajuan-pkl" || router.pathname === "/detail-pengajuan-pkl"}
-                href="pengajuan-pkl"
-              />
-              <CollapseItems
-                icon={undefined}
-                items={[
-                  // eslint-disable-next-line react/jsx-key
+              {showMenuAkademik && (
+                <>
                   <SidebarItem
-                    title="Mahasiswa"
+                    title="Dashboard"
                     icon={undefined}
-                    isActive={router.pathname === "/kelola-mahasiswa" || router.pathname === "/tambah-mahasiswa" || router.pathname === "/edit-mahasiswa"}
-                    href="/kelola-mahasiswa"
-                  />,
-                  // eslint-disable-next-line react/jsx-key
+                    isActive={
+                      router.pathname === "/dashboard-akademik" ||
+                      router.pathname == "/"
+                    }
+                    href="dashboard-akademik"
+                  />
                   <SidebarItem
-                    title="Pembimbing"
+                    title="Pengajuan PKL"
                     icon={undefined}
-                    isActive={router.pathname === "/kelola-pembimbing" || router.pathname === "/tambah-pembimbing" || router.pathname === "/edit-pembimbing"}
-                    href="/kelola-pembimbing"
-                  />,
-                ]}
-                title="Kelola User"
-              />
+                    isActive={
+                      router.pathname === "/pengajuan-pkl" ||
+                      router.pathname === "/detail-pengajuan-pkl"
+                    }
+                    href="pengajuan-pkl"
+                  />
+                  <CollapseItems
+                    icon={undefined}
+                    items={[
+                      // eslint-disable-next-line react/jsx-key
+                      <SidebarItem
+                        title="Mahasiswa"
+                        icon={undefined}
+                        isActive={
+                          router.pathname === "/kelola-mahasiswa" ||
+                          router.pathname === "/tambah-mahasiswa" ||
+                          router.pathname === "/edit-mahasiswa"
+                        }
+                        href="/kelola-mahasiswa"
+                      />,
+                      // eslint-disable-next-line react/jsx-key
+                      <SidebarItem
+                        title="Pembimbing"
+                        icon={undefined}
+                        isActive={
+                          router.pathname === "/kelola-pembimbing" ||
+                          router.pathname === "/tambah-pembimbing" ||
+                          router.pathname === "/edit-pembimbing"
+                        }
+                        href="/kelola-pembimbing"
+                      />,
+                    ]}
+                    title="Kelola User"
+                  />
+                </>
+              )}
             </SidebarMenu>
-            <SidebarMenu title="Main Menu">
+
+            <SidebarMenu title="">
+              {showMenuProdi && (
+                <>
+                  <SidebarItemProdi
+                    title="Dashboard"
+                    icon={undefined}
+                    isActive={
+                      router.pathname === "/dashboard-prodi" ||
+                      router.pathname == "/"
+                    }
+                    href="dashboard-prodi"
+                  />
+
+
+                </>
+              )}
+            </SidebarMenu>
+            {/* <SidebarMenu title="Main Menu">
               <SidebarItem
                 title="Home"
                 icon={<HomeIcon />}
@@ -106,11 +156,11 @@ export const SidebarWrapper = () => {
                 title="Payments"
                 icon={<PaymentsIcon />}
               />
-              {/* <CollapseItems
+              <CollapseItems
                 icon={<BalanceIcon />}
                 items={["Banks Accounts", "Credit Cards", "Loans"]}
                 title="Balances"
-              /> */}
+              />
 
               <SidebarItem
                 isActive={router.pathname === "/customers"}
@@ -127,9 +177,9 @@ export const SidebarWrapper = () => {
                 title="Reports"
                 icon={<ReportsIcon />}
               />
-            </SidebarMenu>
+            </SidebarMenu> */}
 
-            <SidebarMenu title="General">
+            {/* <SidebarMenu title="General">
               <SidebarItem
                 isActive={router.pathname === "/developers"}
                 title="Developers"
@@ -145,15 +195,15 @@ export const SidebarWrapper = () => {
                 title="Settings"
                 icon={<SettingsIcon />}
               />
-            </SidebarMenu>
+            </SidebarMenu> */}
 
-            <SidebarMenu title="Updates">
+            {/* <SidebarMenu title="Updates">
               <SidebarItem
                 isActive={router.pathname === "/changelog"}
                 title="Changelog"
                 icon={<ChangeLogIcon />}
               />
-            </SidebarMenu>
+            </SidebarMenu> */}
           </Sidebar.Body>
         </Flex>
       </Sidebar>

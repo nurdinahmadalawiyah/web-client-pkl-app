@@ -1,18 +1,18 @@
 import React, { useEffect } from 'react';
 import {Flex} from '../../styles/flex';
 import { Box } from '../../styles/box';
-import { CardWelcomeAkademik } from './card-welcome-akademik';
+import { CardWelcomeProdi } from './card-welcome-prodi';
 import { useRouter } from 'next/router';
 
-export const DashboardAkademik = () => {
+export const DashboardProdi = () => {
    const router = useRouter();
 
    useEffect(() => {
       const accessToken = localStorage.getItem('accessToken');
       const role = localStorage.getItem('role');
 
-      if (!accessToken || role !== "Akademik") {
-         router.push('/login-akademik');
+      if (!accessToken || role !== "Prodi") {
+         router.push('/login-prodi');
       }
    })
 
@@ -42,7 +42,7 @@ export const DashboardAkademik = () => {
                   }}
                   direction={'row'}
                >
-                  <CardWelcomeAkademik />
+                  <CardWelcomeProdi />
                </Flex>
             </Box>
       </Flex>

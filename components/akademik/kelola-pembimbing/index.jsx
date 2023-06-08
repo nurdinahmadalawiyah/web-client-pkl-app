@@ -17,7 +17,7 @@ export const KelolaPembimbing = () => {
     const accessToken = localStorage.getItem("accessToken");
     const role = localStorage.getItem("role");
 
-    if (!accessToken || !role) {
+    if (!accessToken || role !== "Akademik") {
       router.push("/login-akademik");
     }
   });
@@ -52,7 +52,7 @@ export const KelolaPembimbing = () => {
         </Grid>
         <Grid xs={6}>
           <Button
-            color="success"
+            color="primary"
             auto
             css={{ marginLeft: "auto" }}
             onClick={() => router.push("/tambah-pembimbing")}
