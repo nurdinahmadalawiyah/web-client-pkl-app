@@ -4,23 +4,25 @@ import {
   Card,
   Spacer,
   Dropdown,
-  Row,
   Button,
   Loading,
   Modal,
+  Grid,
 } from "@nextui-org/react";
 import React, { useState } from "react";
 import { Box } from "../../styles/box";
 import { Flex } from "../../styles/flex";
-import { ChevronDown } from "react-iconly";
 import axios from "axios";
+import { useRouter } from "next/router";
+import { InfoCircle, TickSquare } from "react-iconly";
+import { DropdownInput } from "./dropdown-input";
 
 export const FormInputMahasiswa = () => {
-  const [data, setData] = useState();
+  const router = useRouter();
   const [nama, setNama] = useState("");
   const [nim, setNim] = useState("");
-  const [prodi, setProdi] = useState("");
-  const [semester, setSemester] = useState("");
+  const [prodi, setProdi] = useState("Pilih Prodi");
+  const [semester, setSemester] = useState("Pilih Semester");
   const [nomorHp, setNomorHp] = useState("");
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
@@ -43,13 +45,15 @@ export const FormInputMahasiswa = () => {
     setNim(event.target.value);
   };
 
-  const handleProdiChange = (item) => {
-    setProdi(item.key);
-  };
+  const handleProdiChange = React.useMemo(
+    () => Array.from(prodi).join("").replaceAll("_", " "),
+    [prodi]
+  );
 
-  const handleSemesterChange = (item) => {
-    setSemester(item.key);
-  };
+  const handleSemesterChange = React.useMemo(
+    () => Array.from(semester).join("").replaceAll("_", " "),
+    [semester]
+  );
 
   const handleNomorHpChange = (event) => {
     setNomorHp(event.target.value);
@@ -71,17 +75,21 @@ export const FormInputMahasiswa = () => {
     if (
       nama === "" ||
       nim === "" ||
-      prodi === "" ||
-      semester === "" ||
+      prodi === "Pilih Prodi" ||
+      semester === "Pilih Semester" ||
       username === "" ||
       password === ""
     ) {
       setNamaError(nama === "" ? "Nama tidak boleh kosong" : "");
       setNimError(nim === "" ? "NIM tidak boleh kosong" : "");
-      setProdiError(prodi === "" ? "Prodi tidak boleh kosong" : "");
-      setSemesterError(semester === "" ? "Semester tidak boleh kosong" : "");
+      setProdiError(prodi === "Pilih Prodi" ? "Silakan pilih Prodi" : "");
+      setSemesterError(
+        semester === "Pilih Semester" ? "Silakan pilih Semester" : ""
+      );
       setUsernameError(username === "" ? "Username tidak boleh kosong" : "");
-      setPasswordError(password === "" ? "Password tidak boleh kosong" : "");
+      setPasswordError(username === "" ? "Password tidak boleh kosong" : "");
+    } else if (password !== "" && password.length < 8) {
+      setPasswordError("Password minimal harus 8 karakter");
     } else {
       setNamaError("");
       setNimError("");
@@ -99,10 +107,10 @@ export const FormInputMahasiswa = () => {
             username,
             nama,
             nim,
-            prodi,
-            semester,
+            prodi: handleProdiChange,
+            semester: handleSemesterChange,
             email,
-            nomor_hp: nomorHp,
+            nomorHp,
             password,
           },
           {
@@ -114,7 +122,6 @@ export const FormInputMahasiswa = () => {
             },
           }
         );
-        console.log(result.data.data);
         setShowModalSuccess(true);
       } catch (error) {
         console.error(error);
@@ -124,23 +131,10 @@ export const FormInputMahasiswa = () => {
     }
   };
 
-  const dataProdi = [
-    { key: "informatika", name: "Teknik Informatika" },
-    { key: "komputer", name: "Teknik Komputer" },
-    { key: "akuntansi", name: "Akuntansi" },
-  ];
-
-  const dataSemester = [
-    { key: "1 (Satu)", name: "1 (Satu)" },
-    { key: "2 (Dua)", name: "2 (Dua)" },
-    { key: "3 (Tiga)", name: "3 (Tiga)" },
-    { key: "4 (Empat)", name: "4 (Empat)" },
-    { key: "5 (Lima)", name: "5 (Lima)" },
-    { key: "6 (Enam)", name: "6 (Enam)" },
-    { key: "7 (Tujuh)", name: "7 (Tujuh)" },
-    { key: "8 (Delapan)", name: "8 (Delapan)" },
-    { key: "9 (Sembilan)", name: "9 (Sembilan)" },
-  ];
+  const handleModalSuccess = () => {
+    setShowModalSuccess(false);
+    router.push("/kelola-mahasiswa");
+  };
 
   return (
     <Box
@@ -190,58 +184,6 @@ export const FormInputMahasiswa = () => {
             />
             {nimError && <Text color="error">{nimError}</Text>}
             <Spacer y={1.6} />
-            <Dropdown>
-              <Dropdown.Trigger>
-                <Input
-                  size="lg"
-                  bordered
-                  color="primary"
-                  labelPlaceholder="Prodi"
-                  value={prodi}
-                  onChange={handleProdiChange}
-                  contentRight={<ChevronDown set="bold" />}
-                />
-              </Dropdown.Trigger>
-              <Dropdown.Menu aria-label="Dynamic Actions" items={dataProdi}>
-                {(item) => (
-                  <Dropdown.Item
-                    key={item.key}
-                    color={item.key === prodi ? "primary" : "default"}
-                    onClick={() => setProdi(item.key)}
-                  >
-                    {item.name}
-                  </Dropdown.Item>
-                )}
-              </Dropdown.Menu>
-            </Dropdown>
-            {prodiError && <Text color="error">{prodiError}</Text>}
-            <Spacer y={1.6} />
-            <Dropdown>
-              <Dropdown.Trigger>
-                <Input
-                  size="lg"
-                  bordered
-                  color="primary"
-                  labelPlaceholder="Semester"
-                  value={semester}
-                  onChange={handleSemesterChange}
-                  contentRight={<ChevronDown set="bold" />}
-                />
-              </Dropdown.Trigger>
-              <Dropdown.Menu aria-label="Dynamic Actions" items={dataSemester}>
-                {(item) => (
-                  <Dropdown.Item
-                    key={item.key}
-                    color={item.key === semester ? "primary" : "default"}
-                    onClick={() => setSemester(item.key)}
-                  >
-                    {item.name}
-                  </Dropdown.Item>
-                )}
-              </Dropdown.Menu>
-            </Dropdown>
-            {semesterError && <Text color="error">{semesterError}</Text>}
-            <Spacer y={1.6} />
             <Input
               size="lg"
               bordered
@@ -251,6 +193,23 @@ export const FormInputMahasiswa = () => {
               onChange={handleNomorHpChange}
               labelPlaceholder="Nomor HP"
             />
+            <Spacer y={1.6} />
+            <DropdownInput
+              prodi={prodi}
+              setProdi={setProdi}
+              handleProdiChange={handleProdiChange}
+              semester={semester}
+              setSemester={setSemester}
+              handleSemesterChange={handleSemesterChange}
+            />
+            <Grid.Container>
+              <Grid xs={6}>
+                {prodiError && <Text color="error">{prodiError}</Text>}
+              </Grid>
+              <Grid xs={6}>
+                {semesterError && <Text color="error">{semesterError}</Text>}
+              </Grid>
+            </Grid.Container>
           </Card.Body>
         </Card>
         <Card
@@ -292,35 +251,53 @@ export const FormInputMahasiswa = () => {
           </Card.Body>
         </Card>
       </Flex>
-      <Row>
-        {showModalSuccess && (
-          <Modal
-            title="Sukses"
-            width={300}
-            onClose={() => setShowModalSuccess(false)}
-          >
-            Data mahasiswa berhasil disimpan.
-          </Modal>
-        )}
+      <Spacer y={1.6} />
+      <Button auto onPress={handleInput} disabled={isLoading} css={{ ml: 10 }}>
+        {isLoading ? <Loading color="currentColor" size="sm" /> : "Simpan"}
+      </Button>
 
-        {showModalError && (
-          <Modal
-            title="Error"
-            width={300}
-            onClose={() => setShowModalError(false)}
-          >
-            Terjadi kesalahan saat menyimpan data mahasiswa.
-          </Modal>
-        )}
-        <Button
-          auto
-          onClick={handleInput}
-          disabled={isLoading}
-          css={{ ml: 10 }}
+      {showModalSuccess && (
+        <Modal
+          title="Sukses"
+          width="500px"
+          open={showModalSuccess}
+          onClose={handleModalSuccess}
         >
-          {isLoading ? <Loading color="currentColor" size="sm" /> : "Simpan"}
-        </Button>
-      </Row>
+          <Modal.Header>
+            <TickSquare set="bold" primaryColor="green" size={100} />
+          </Modal.Header>
+          <Modal.Body css={{ textAlign: "center" }}>
+            <Text size={20}>Data mahasiswa berhasil disimpan.</Text>
+          </Modal.Body>
+          <Modal.Footer css={{ justifyContent: "center" }}>
+            <Button color="primary" onPress={handleModalSuccess}>
+              Tutup
+            </Button>
+          </Modal.Footer>
+        </Modal>
+      )}
+      {showModalError && (
+        <Modal
+          title="Error"
+          width="500px"
+          open={showModalError}
+          onClose={() => setShowModalError(false)}
+        >
+          <Modal.Header>
+            <InfoCircle set="bold" primaryColor="red" size={100} />
+          </Modal.Header>
+          <Modal.Body css={{ textAlign: "center" }}>
+            <Text size={20}>
+              Terjadi kesalahan saat menyimpan data mahasiswa.
+            </Text>
+          </Modal.Body>
+          <Modal.Footer css={{ justifyContent: "center" }}>
+            <Button color="primary" onPress={() => setShowModalError(false)}>
+              Tutup
+            </Button>
+          </Modal.Footer>
+        </Modal>
+      )}
     </Box>
   );
 };

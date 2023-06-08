@@ -4,12 +4,13 @@ import { Box } from "../../styles/box";
 import {HapusMahasiswa} from './hapus-mahasiswa';
 import { IconButton } from "../../table/table.styled";
 import axios from "axios";
-import Link from "next/link";
 import { InfoCircle } from "react-iconly";
+import { useRouter } from 'next/router';
 
 export const TableMahasiswa = () => {
   const [data, setData] = useState([]);
   const [serverError, setServerError] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -32,6 +33,13 @@ export const TableMahasiswa = () => {
 
     fetchData();
   }, []);
+
+  const handleEditClick = (mahasiswa) => {
+    router.push({
+      pathname: `/edit-mahasiswa`,
+      query: { mahasiswa: JSON.stringify(mahasiswa) },
+    });
+  };
 
   if (serverError) {
     return (
@@ -78,7 +86,7 @@ export const TableMahasiswa = () => {
         </Table.Header>
         <Table.Body>
           {data.map((mahasiswa) => (
-            <Table.Row key={mahasiswa.id_pengajuan}>
+            <Table.Row key={mahasiswa.id_mahasiswa}>
               <Table.Cell>
                 <div style={{ display: "flex", flexDirection: "column" }}>
                   <Text b size={15} css={{ tt: "capitalize", color: "$accents7" }}>
@@ -122,17 +130,15 @@ export const TableMahasiswa = () => {
               >
                 <Col css={{ d: "flex" }}>
                   <Tooltip content="Edit Mahasiswa">
-                    <Link href="/edit-mahasiswa">
-                    <IconButton onClick={() => console.log("Edit user", mahasiswa.id_mahasiswa)}>
+                    <IconButton onClick={() => handleEditClick(mahasiswa)}>
                       <Text b size={14} css={{ tt: "capitalize", color: "$yellow600" }}>
                         Edit
                       </Text>
                     </IconButton>
-                    </Link>
                   </Tooltip>
                 </Col>
                 <Col css={{ d: "flex" }}>
-                  <HapusMahasiswa />
+                  <HapusMahasiswa data={mahasiswa} />
                 </Col>
               </Row>
               </Table.Cell>

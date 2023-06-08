@@ -107,13 +107,11 @@ export const TablePembimbing = () => {
               >
                 <Col css={{ d: "flex" }}>
                   <Tooltip content="Edit Pembimbing">
-                    {/* <Link href="/edit-pembimbing"> */}
                     <IconButton onClick={() => handleEditClick(pembimbing)}>
                       <Text b size={14} css={{ tt: "capitalize", color: "$yellow600" }}>
                         Edit
                       </Text>
                     </IconButton>
-                    {/* </Link> */}
                   </Tooltip>
                 </Col>
                 <Col css={{ d: "flex" }}>

@@ -59,7 +59,7 @@ export const HapusPembimbing = ({ data }) => {
         onClose={closeHandler}
       >
         <Modal.Header>
-        {isLoading ? <Loading type="spinner" color="currentColor" size="xl" /> :<InfoCircle set="bold" primaryColor="orange" size={100} />}
+        {isLoading ? <Loading type="spinner" color="currentColor" size="xl" /> :<InfoCircle set="bold" primaryColor="red" size={100} />}
         </Modal.Header>
         <Modal.Body css={{ textAlign: "center" }}>
           <Text size={20}>Yakin Ingin Menghapus Data?</Text>
