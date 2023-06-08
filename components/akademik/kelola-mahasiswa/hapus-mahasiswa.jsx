@@ -16,7 +16,9 @@ export const HapusMahasiswa = ({ data }) => {
   }, []);
 
   const closeHandler = () => {
-    setVisible(false);
+    if (!isLoading) {
+      setVisible(false);
+    }
   };
 
   const confirmDelete = () => {

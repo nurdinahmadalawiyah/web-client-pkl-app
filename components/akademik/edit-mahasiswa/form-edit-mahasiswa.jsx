@@ -3,22 +3,24 @@ import {
   Text,
   Card,
   Spacer,
-  Dropdown,
-  Button,
-  Loading,
-  Modal,
+  Tooltip,
   Grid,
+  Modal,
+  Loading,
+  Button,
 } from "@nextui-org/react";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Box } from "../../styles/box";
 import { Flex } from "../../styles/flex";
 import axios from "axios";
 import { useRouter } from "next/router";
 import { InfoCircle, TickSquare } from "react-iconly";
-import { DropdownInput } from "./dropdown-input";
+import { DropdownInput } from "../tambah-mahasiswa/dropdown-input";
 
-export const FormInputMahasiswa = () => {
+export const FormEditMahasiswa = () => {
   const router = useRouter();
+  const { mahasiswa } = router.query;
+  const [idMahasiswa, setIdMahasiswa] = useState("");
   const [nama, setNama] = useState("");
   const [nim, setNim] = useState("");
   const [prodi, setProdi] = useState("Pilih Prodi");
@@ -37,6 +39,20 @@ export const FormInputMahasiswa = () => {
   const [showModalSuccess, setShowModalSuccess] = useState(false);
   const [showModalError, setShowModalError] = useState(false);
 
+  useEffect(() => {
+    if (mahasiswa) {
+      const parsedMahasiswa = JSON.parse(mahasiswa);
+      setIdMahasiswa(parsedMahasiswa.id_mahasiswa);
+      setNama(parsedMahasiswa.nama);
+      setNim(parsedMahasiswa.nim);
+      setProdi(parsedMahasiswa.id_prodi.toString());
+      setSemester(parsedMahasiswa.semester);
+      setNomorHp(parsedMahasiswa.nomor_hp);
+      setEmail(parsedMahasiswa.email);
+      setUsername(parsedMahasiswa.username);
+    }
+  }, [mahasiswa]);
+
   const handleNamaChange = (event) => {
     setNama(event.target.value);
   };
@@ -45,15 +61,21 @@ export const FormInputMahasiswa = () => {
     setNim(event.target.value);
   };
 
-  const handleProdiChange = React.useMemo(
-    () => Array.from(prodi).join("").replaceAll("_", " "),
-    [prodi]
-  );
+  const handleProdiChange = React.useMemo(() => {
+    if (prodi && typeof prodi !== "undefined") {
+      return Array.from(prodi).join("").replaceAll("_", " ");
+    } else {
+      return "";
+    }
+  }, [prodi]);
 
-  const handleSemesterChange = React.useMemo(
-    () => Array.from(semester).join("").replaceAll("_", " "),
-    [semester]
-  );
+  const handleSemesterChange = React.useMemo(() => {
+    if (semester && typeof semester !== "undefined") {
+      return Array.from(semester).join("").replaceAll("_", " ");
+    } else {
+      return "";
+    }
+  }, [semester]);
 
   const handleNomorHpChange = (event) => {
     setNomorHp(event.target.value);
@@ -77,8 +99,7 @@ export const FormInputMahasiswa = () => {
       nim === "" ||
       prodi === "Pilih Prodi" ||
       semester === "Pilih Semester" ||
-      username === "" ||
-      password === ""
+      username === ""
     ) {
       setNamaError(nama === "" ? "Nama tidak boleh kosong" : "");
       setNimError(nim === "" ? "NIM tidak boleh kosong" : "");
@@ -87,7 +108,6 @@ export const FormInputMahasiswa = () => {
         semester === "Pilih Semester" ? "Silakan pilih Semester" : ""
       );
       setUsernameError(username === "" ? "Username tidak boleh kosong" : "");
-      setPasswordError(username === "" ? "Password tidak boleh kosong" : "");
     } else if (password !== "" && password.length < 8) {
       setPasswordError("Password minimal harus 8 karakter");
     } else {
@@ -102,7 +122,7 @@ export const FormInputMahasiswa = () => {
 
       try {
         const result = await axios.post(
-          `${process.env.API_BASE_URL}/mahasiswa/add`,
+          `${process.env.API_BASE_URL}/mahasiswa/update/${idMahasiswa}?_method=PUT`,
           {
             username,
             nama,
@@ -145,7 +165,7 @@ export const FormInputMahasiswa = () => {
       }}
     >
       <Text h3 css={{ ml: 10 }}>
-        Tambah Data Mahasiswa
+        Edit Data Mahasiswa
       </Text>
       <Flex
         css={{
@@ -239,14 +259,14 @@ export const FormInputMahasiswa = () => {
             />
             {usernameError && <Text color="error">{usernameError}</Text>}
             <Spacer y={1.6} />
-            <Input.Password
-              size="lg"
-              bordered
-              color="primary"
-              value={password}
-              onChange={handlePasswordChange}
-              labelPlaceholder="Password"
-            />
+              <Input.Password
+                size="lg"
+                bordered
+                color="primary"
+                value={password}
+                onChange={handlePasswordChange}
+                labelPlaceholder="Password"
+              />
             {passwordError && <Text color="error">{passwordError}</Text>}
           </Card.Body>
         </Card>
@@ -267,7 +287,7 @@ export const FormInputMahasiswa = () => {
             <TickSquare set="bold" primaryColor="green" size={100} />
           </Modal.Header>
           <Modal.Body css={{ textAlign: "center" }}>
-            <Text size={20}>Data mahasiswa berhasil disimpan.</Text>
+            <Text size={20}>Data mahasiswa berhasil diperbarui.</Text>
           </Modal.Body>
           <Modal.Footer css={{ justifyContent: "center" }}>
             <Button color="primary" onPress={handleModalSuccess}>
@@ -288,7 +308,7 @@ export const FormInputMahasiswa = () => {
           </Modal.Header>
           <Modal.Body css={{ textAlign: "center" }}>
             <Text size={20}>
-              Terjadi kesalahan saat menyimpan data mahasiswa.
+              Terjadi kesalahan saat memperbarui data mahasiswa.
             </Text>
           </Modal.Body>
           <Modal.Footer css={{ justifyContent: "center" }}>

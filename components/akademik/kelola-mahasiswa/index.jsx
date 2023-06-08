@@ -66,6 +66,7 @@ export const KelolaMahasiswa = () => {
           borderRadius: "$xl",
           px: "$6",
           mt: "$6",
+          mb: "$10" 
         }}
       >
         <Card.Body css={{ py: "$10" }}>

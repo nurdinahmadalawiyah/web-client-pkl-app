@@ -162,7 +162,7 @@ export const FormEditPembimbing = () => {
             />
             {usernameError && <Text color="error">{usernameError}</Text>}
             <Spacer y={1.6} />
-            <Tooltip content={ "Kosongkan Form Passoword jika tidak akan memperbarui password"}>
+            <Tooltip content={ "Kosongkan Form Password jika tidak akan memperbarui password"}>
             <Input.Password
               size="lg"
               bordered
@@ -177,6 +177,7 @@ export const FormEditPembimbing = () => {
           </Card.Body>
         </Card>
       </Flex>
+      <Spacer y={1.6} />
       <Button auto onPress={handleInput} disabled={isLoading} css={{ ml: 10 }}>
         {isLoading ? <Loading color="currentColor" size="sm" /> : "Simpan"}
       </Button>

@@ -160,7 +160,7 @@ export const FormInputPembimbing = () => {
           </Card.Body>
         </Card>
       </Flex>
-
+      <Spacer y={1.6} />
       <Button auto onClick={handleInput} disabled={isLoading} css={{ ml: 10 }}>
         {isLoading ? <Loading color="currentColor" size="sm" /> : "Simpan"}
       </Button>
