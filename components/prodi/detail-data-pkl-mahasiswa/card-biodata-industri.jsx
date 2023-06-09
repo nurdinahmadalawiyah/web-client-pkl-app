@@ -1,21 +1,23 @@
-import { Button, Card, Row, Text, Tooltip } from "@nextui-org/react";
-import React, { useState, useEffect } from "react";
-import { Flex } from "../../styles/flex";
+import { Card, Text } from "@nextui-org/react";
+import React from "react";
 import { Box } from "../../styles/box";
-import { InfoCircle, Document } from "react-iconly";
+import { Document } from "react-iconly";
 import { useRouter } from "next/router";
-import { CardDetailMahasiswa } from "./card-detail-mahasiswa";
-import { CardDetailTempatPkl } from "./card-detail-tempat-pkl";
 
 export const CardBiodataIndustri = () => {
+  const router = useRouter();
+
   return (
     <Card
+      isPressable
+      isHoverable
       css={{
         bg: "#0072F5",
         borderRadius: "$xl",
         flex: "1 1 100%",
         marginBottom: "10px",
       }}
+      onPress={() => router.push('/biodata-industri')}
     >
       <Card.Body>
         <Box css={{ textAlign: "center" }}>

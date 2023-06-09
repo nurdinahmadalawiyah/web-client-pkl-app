@@ -136,7 +136,11 @@ export const SidebarWrapper = () => {
                   <SidebarItemProdi
                     title="Data PKL Mahasiswa"
                     icon={undefined}
-                    isActive={router.pathname === "/data-pkl-mahasiswa" || router.pathname == "/detail-data-pkl-mahasiswa"}
+                    isActive={
+                      router.pathname === "/data-pkl-mahasiswa" ||
+                      router.pathname === "/detail-data-pkl-mahasiswa" ||
+                      router.pathname === "/biodata-industri"
+                    }
                     href="data-pkl-mahasiswa"
                   />
                 </>
