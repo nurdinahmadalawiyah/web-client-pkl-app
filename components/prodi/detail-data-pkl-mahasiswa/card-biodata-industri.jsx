@@ -8,7 +8,6 @@ import { InfoSquare } from "react-iconly";
 export const CardBiodataIndustri = ({ data }) => {
   const router = useRouter();
   const [visible, setVisible] = React.useState(false);
-  const handler = () => setVisible(true);
 
   const closeHandler = () => {
     setVisible(false);

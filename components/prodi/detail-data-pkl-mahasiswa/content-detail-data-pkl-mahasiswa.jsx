@@ -84,7 +84,7 @@ export const ContentDetailDataPklMahasiwa = () => {
             direction={"row"}
           >
             <CardBiodataIndustri data={dataState} />
-            <CardJurnalKegiatan />
+            <CardJurnalKegiatan data={dataState} />
             <CardNilaiPkl />
             <CardDaftarHadir />
             <CardLaporanPkl />

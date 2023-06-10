@@ -14,58 +14,58 @@ export const IdentitasIndustri = ({data}) => {
         justifyContent: "center",
       }}
     >
-      <Text b size={14} color="white">
+      <Text b size="$md" color="white">
         IDENTITAS INDUSTRI
       </Text>
       <Spacer y={0.5} />
       <Grid.Container>
         <Grid xs={6}>
-          <Text size={14} color="white">
+          <Text size="$md" color="white">
             Nama Industri
           </Text>
         </Grid>
         <Grid xs={6}>
-          <Text size={14} color="white">
+          <Text size="$md" color="white">
             : {data.nama_industri}
           </Text>
         </Grid>
         <Grid xs={6}>
-          <Text size={14} color="white">
+          <Text size="$md" color="white">
             Nama Direktur/Pimpinan
           </Text>
         </Grid>
         <Grid xs={6}>
-          <Text size={14} color="white">
+          <Text size="$md" color="white">
             : {data.nama_pimpinan}
           </Text>
         </Grid>
         <Grid xs={6}>
-          <Text size={14} color="white">
+          <Text size="$md" color="white">
             Alamat Kantor
           </Text>
         </Grid>
         <Grid xs={6}>
-          <Text size={14} color="white">
+          <Text size="$md" color="white">
             : {data.alamat_kantor}
           </Text>
         </Grid>
         <Grid xs={6}>
-          <Text size={14} color="white">
+          <Text size="$md" color="white">
             No.Telepon/FAX
           </Text>
         </Grid>
         <Grid xs={6}>
-          <Text size={14} color="white">
+          <Text size="$md" color="white">
             : {data.no_telp_fax}
           </Text>
         </Grid>
         <Grid xs={6}>
-          <Text size={14} color="white">
+          <Text size="$md" color="white">
             Contact Person
           </Text>
         </Grid>
         <Grid xs={6}>
-          <Text size={14} color="white">
+          <Text size="$md" color="white">
             : {data.contact_person}
           </Text>
         </Grid>

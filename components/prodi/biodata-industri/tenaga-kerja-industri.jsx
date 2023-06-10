@@ -11,7 +11,7 @@ export const TenagaKerjaIndustri = ({ data }) => {
         p: "$10",
       }}
     >
-      <Text b size={14}>
+      <Text b size="$md">
         TENAGA KERJA
       </Text>
       <Spacer y={0.5} />
@@ -65,7 +65,7 @@ export const TenagaKerjaIndustri = ({ data }) => {
         </Table.Body>
       </Table>
       <Spacer y={0.5} />
-      <Text b size={12}>
+      <Text b size="$md">
         Jumlah Tenaga Kerja :{" "}
         {data.jumlah_tenaga_kerja_sd +
           data.jumlah_tenaga_kerja_sltp +
