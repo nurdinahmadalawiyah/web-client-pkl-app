@@ -1,7 +1,6 @@
-import { Card, Text, Spacer } from "@nextui-org/react";
+import { Card, Text, Spacer, Loading } from "@nextui-org/react";
 import React, { useState, useEffect } from "react";
 import { Flex } from "../../styles/flex";
-import { Box } from "../../styles/box";
 import { useRouter } from "next/router";
 import { CardDetailMahasiswa } from "./card-detail-mahasiswa";
 import { CardDetailTempatPkl } from "./card-detail-tempat-pkl";
@@ -84,7 +83,7 @@ export const ContentDetailDataPklMahasiwa = () => {
             }}
             direction={"row"}
           >
-            <CardBiodataIndustri />
+            <CardBiodataIndustri data={dataState} />
             <CardJurnalKegiatan />
             <CardNilaiPkl />
             <CardDaftarHadir />
@@ -92,7 +91,7 @@ export const ContentDetailDataPklMahasiwa = () => {
           </Flex>
         </>
       ) : (
-        <div>Loading...</div>
+        <Loading size="xl" color="success" />
       )}
     </Card.Body>
   );

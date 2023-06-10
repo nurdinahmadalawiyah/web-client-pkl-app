@@ -1,7 +1,7 @@
 import { Card, Text, Spacer, Grid } from "@nextui-org/react";
 import React from "react";
 
-export const AktivitasIndustri = () => {
+export const AktivitasIndustri = ({ data }) => {
   return (
     <Card
       variant="flat"
@@ -25,7 +25,7 @@ export const AktivitasIndustri = () => {
         </Grid>
         <Grid xs={6}>
           <Text size={14} color="white">
-            : Isi
+            : {data.bidang_usaha_jasa}
           </Text>
         </Grid>
         <Grid xs={6}>
@@ -35,7 +35,7 @@ export const AktivitasIndustri = () => {
         </Grid>
         <Grid xs={6}>
           <Text size={14} color="white">
-            : Isi
+            : {data.spesialisasi_produksi_jasa}
           </Text>
         </Grid>
         <Grid xs={6}>
@@ -45,7 +45,7 @@ export const AktivitasIndustri = () => {
         </Grid>
         <Grid xs={6}>
           <Text size={14} color="white">
-            : Isi
+            : {data.kapasitas_produksi}
           </Text>
         </Grid>
         <Grid xs={6}>
@@ -55,7 +55,7 @@ export const AktivitasIndustri = () => {
         </Grid>
         <Grid xs={6}>
           <Text size={14} color="white">
-            : Isi
+            : {data.jangkauan_pemasaran}
           </Text>
         </Grid>
       </Grid.Container>

@@ -1,11 +1,13 @@
-import { Card, Row, Text, Tooltip } from "@nextui-org/react";
-import React, { useState, useEffect } from "react";
+import { Card, Text } from "@nextui-org/react";
+import React from "react";
 import { Box } from "../../styles/box";
 import { TicketStar } from "react-iconly";
 
 export const CardNilaiPkl = () => {
   return (
     <Card
+      isPressable
+      isHoverable
       css={{
         bg: "#F5A524",
         borderRadius: "$xl",

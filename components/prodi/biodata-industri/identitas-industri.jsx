@@ -1,12 +1,12 @@
 import { Card, Text, Spacer, Grid } from "@nextui-org/react";
 import React from "react";
 
-export const IdentitasIndustri = () => {
+export const IdentitasIndustri = ({data}) => {
   return (
     <Card
       variant="flat"
       css={{
-        bg: "#30E3CA",
+        bg: "$green600",
         borderRadius: "$xl",
         p: "$10",
         flex: "1 1 100%",
@@ -26,7 +26,7 @@ export const IdentitasIndustri = () => {
         </Grid>
         <Grid xs={6}>
           <Text size={14} color="white">
-            : Isi
+            : {data.nama_industri}
           </Text>
         </Grid>
         <Grid xs={6}>
@@ -36,7 +36,7 @@ export const IdentitasIndustri = () => {
         </Grid>
         <Grid xs={6}>
           <Text size={14} color="white">
-            : Isi
+            : {data.nama_pimpinan}
           </Text>
         </Grid>
         <Grid xs={6}>
@@ -46,7 +46,7 @@ export const IdentitasIndustri = () => {
         </Grid>
         <Grid xs={6}>
           <Text size={14} color="white">
-            : Isi
+            : {data.alamat_kantor}
           </Text>
         </Grid>
         <Grid xs={6}>
@@ -56,7 +56,7 @@ export const IdentitasIndustri = () => {
         </Grid>
         <Grid xs={6}>
           <Text size={14} color="white">
-            : Isi
+            : {data.no_telp_fax}
           </Text>
         </Grid>
         <Grid xs={6}>
@@ -66,7 +66,7 @@ export const IdentitasIndustri = () => {
         </Grid>
         <Grid xs={6}>
           <Text size={14} color="white">
-            : Isi
+            : {data.contact_person}
           </Text>
         </Grid>
       </Grid.Container>
