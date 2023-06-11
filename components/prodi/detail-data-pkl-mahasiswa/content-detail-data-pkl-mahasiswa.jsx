@@ -85,9 +85,9 @@ export const ContentDetailDataPklMahasiwa = () => {
           >
             <CardBiodataIndustri data={dataState} />
             <CardJurnalKegiatan data={dataState} />
-            <CardNilaiPkl />
-            <CardDaftarHadir />
-            <CardLaporanPkl />
+            <CardNilaiPkl data={dataState} />
+            <CardDaftarHadir data={dataState} />
+            <CardLaporanPkl data={dataState} />
           </Flex>
         </>
       ) : (

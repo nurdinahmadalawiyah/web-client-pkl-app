@@ -76,30 +76,10 @@ export const CardJurnalKegiatan = ({ data }) => {
           <InfoSquare set="bold" primaryColor="orange" size={100} />
         </Modal.Header>
         <Modal.Body css={{ textAlign: "center" }}>
-          {getData.length > 0 ? (
-            // Menampilkan data kegiatan jika tidak kosong
-            <>
-              {getData.map((item) => (
-                <div key={item.minggu}>
-                  <Text size={20} b>
-                    Minggu {item.minggu}
-                  </Text>
-                  {item.data_kegiatan.map((kegiatan) => (
-                    <div key={kegiatan.id_jurnal_kegiatan}>
-                      <Text>{kegiatan.bidang_pekerjaan}</Text>
-                      <Text>{kegiatan.keterangan}</Text>
-                    </div>
-                  ))}
-                </div>
-              ))}
-            </>
-          ) : (
-            // Menampilkan pesan jika data kosong
             <Text size={20}>
               {data.nama_mahasiswa}
               <br></br> Belum Membuat Dokumen Jurnal Kegiatan
             </Text>
-          )}
         </Modal.Body>
       </Modal>
     </Card>

@@ -1,12 +1,10 @@
-import { Card, Text, Spacer, Grid, Row, Loading } from "@nextui-org/react";
+import { Card, Text, Spacer, Grid, Loading } from "@nextui-org/react";
 import React, { useState, useEffect } from "react";
-import { ChevronRight } from "react-iconly";
 import { useRouter } from "next/router";
 import { id } from "date-fns/locale/id";
 import { parseISO, format } from "date-fns";
 
 export const ContentDetailJurnalKegiatan = () => {
-  const [serverError, setServerError] = useState(false);
   const router = useRouter();
   const [jurnalData, setJurnalData] = useState(null);
 

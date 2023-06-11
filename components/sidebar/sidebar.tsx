@@ -141,7 +141,8 @@ export const SidebarWrapper = () => {
                       router.pathname === "/detail-data-pkl-mahasiswa" ||
                       router.pathname === "/biodata-industri" ||
                       router.pathname === "/jurnal-kegiatan" ||
-                      router.pathname === "/detail-jurnal-kegiatan"
+                      router.pathname === "/detail-jurnal-kegiatan" ||
+                      router.pathname === "/daftar-hadir"
                     }
                     href="data-pkl-mahasiswa"
                   />
