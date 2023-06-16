@@ -30,7 +30,7 @@ export const CardNilaiPkl = ({ data }) => {
   }, []);
 
   const handleClick = () => {
-    router.push(`/detail-nilai-pkl?id_mahasiswa=${data.id_mahasiswa}`);
+    router.push(`/detail-nilai-pkl?id_mahasiswa=${data.id_mahasiswa}&nama_mahasiswa=${data.nama_mahasiswa}&id_tempat_pkl=${data.id_tempat_pkl}`);
   };
 
   return (

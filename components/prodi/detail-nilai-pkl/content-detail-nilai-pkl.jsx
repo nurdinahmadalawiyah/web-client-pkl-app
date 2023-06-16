@@ -1,10 +1,6 @@
 import { Card, Text, Spacer, Grid, Loading, Button } from "@nextui-org/react";
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import { Box } from "../../styles/box";
-import { InfoCircle } from "react-iconly";
-import { id } from "date-fns/locale/id";
-import { Flex } from "../../styles/flex";
 import { NilaiPembimbing } from "./nilai-pembimbing";
 import { NilaiProdi } from "./nilai-prodi";
 import { NilaiAkhir } from "./nilai-akhir";
@@ -15,14 +11,14 @@ export const ContentDetailNilaiPkl = () => {
   const [data, setData] = useState({});
 
   const router = useRouter();
-  const { id_mahasiswa } = router.query;
+  const { id_mahasiswa, nama_mahasiswa, id_tempat_pkl } = router.query;
 
   useEffect(() => {
-    if (id_mahasiswa) {
+    if (id_mahasiswa && nama_mahasiswa, id_tempat_pkl) {
       fetchData();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [id_mahasiswa]);
+  }, [id_mahasiswa, nama_mahasiswa, id_tempat_pkl]);
 
   const fetchData = async () => {
     try {
@@ -43,15 +39,31 @@ export const ContentDetailNilaiPkl = () => {
     }
   };
 
+  const handleEditClick = (data) => {
+    router.push({
+      pathname: `/edit-nilai`,
+      query: { data: JSON.stringify(data) },
+    });
+  };
+
+  const handleEditClickNullData = () => {
+    router.push(`/edit-nilai?id_mahasiswa=${id_mahasiswa}&nama_mahasiswa=${nama_mahasiswa}&id_tempat_pkl=${id_tempat_pkl}`);
+  };
+
   if (serverError) {
     return (
       <Card.Body css={{ py: "$10" }}>
         <Grid.Container gap={2}>
           <Grid xs={6}>
-            <Text h3>Nilai Mahasiswa Nama</Text>
+            <Text h3>Nilai Mahasiswa {nama_mahasiswa}</Text>
           </Grid>
           <Grid xs={6} justify="end">
-            <Button color="success" auto css={{ ml: "$3" }}>
+            <Button
+              color="success"
+              auto
+              css={{ ml: "$3" }}
+              onPress={() => handleEditClickNullData()}
+            >
               Edit Nilai
             </Button>
           </Grid>
@@ -75,13 +87,15 @@ export const ContentDetailNilaiPkl = () => {
     <Card.Body css={{ py: "$10" }}>
       <Grid.Container gap={2}>
         <Grid xs={6}>
-          <Text h3>Nilai Mahasiswa Nama</Text>
+          <Text h3>Nilai Mahasiswa {data.nama}</Text>
         </Grid>
         <Grid xs={6} justify="end">
-          <Button color="neutral" auto>
-            Cetak
-          </Button>
-          <Button color="success" auto css={{ ml: "$3" }}>
+          <Button
+            color="success"
+            auto
+            css={{ ml: "$3" }}
+            onPress={() => handleEditClick(data)}
+          >
             Edit Nilai
           </Button>
         </Grid>
