@@ -1,9 +1,38 @@
 import { Card, Text } from "@nextui-org/react";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Box } from "../../styles/box";
 import { TicketStar } from "react-iconly";
+import { useRouter } from "next/router";
 
-export const CardNilaiPkl = () => {
+export const CardNilaiPkl = ({ data }) => {
+  const router = useRouter();
+  const [getData, setGetData] = useState([]);
+
+  const fetchData = async () => {
+    try {
+      const result = await axios.get(
+        `${process.env.API_BASE_URL}/penilaian-prodi/prodi/${data.id_mahasiswa}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          },
+        }
+      );
+      setGetData(result.data.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const handleClick = () => {
+    router.push(`/detail-nilai-pkl?id_mahasiswa=${data.id_mahasiswa}`);
+  };
+
   return (
     <Card
       isPressable
@@ -14,6 +43,7 @@ export const CardNilaiPkl = () => {
         flex: "1 1 100%",
         marginBottom: "10px",
       }}
+      onPress={handleClick}
     >
       <Card.Body>
         <Box css={{ textAlign: "center" }}>

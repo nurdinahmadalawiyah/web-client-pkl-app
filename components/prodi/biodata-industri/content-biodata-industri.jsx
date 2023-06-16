@@ -1,4 +1,4 @@
-import { Card, Text, Spacer, Grid } from "@nextui-org/react";
+import { Card, Text, Spacer } from "@nextui-org/react";
 import React, { useState, useEffect } from "react";
 import { Flex } from "../../styles/flex";
 import { Box } from "../../styles/box";
