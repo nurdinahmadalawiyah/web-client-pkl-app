@@ -52,6 +52,10 @@ export const CardLoginAkademik = () => {
       localStorage.setItem('accessToken', data.access_token);
       localStorage.setItem('role', data.role);
 
+      const expirationDate = new Date();
+      expirationDate.setDate(expirationDate.getDate() + 5);
+      localStorage.setItem('expirationDate', expirationDate.getTime().toString());
+      
       window.location.href = "/dashboard-akademik";
     } catch (error) {
       console.error("Login gagal", error);
@@ -60,6 +64,22 @@ export const CardLoginAkademik = () => {
     }
     setIsLoading(false);
   };
+
+  const checkTokenExpiration = () => {
+    const accessToken = localStorage.getItem('accessToken');
+    const expirationDate = localStorage.getItem('expirationDate');
+  
+    if (accessToken && expirationDate) {
+      const currentTime = new Date().getTime();
+  
+      if (currentTime > parseInt(expirationDate)) {
+        localStorage.removeItem('accessToken');
+        localStorage.removeItem('role');
+        localStorage.removeItem('expirationDate');
+      }
+    }
+  };
+
 
   return (
     <Card

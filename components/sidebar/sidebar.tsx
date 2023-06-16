@@ -148,6 +148,12 @@ export const SidebarWrapper = () => {
                     }
                     href="data-pkl-mahasiswa"
                   />
+                  <SidebarItemProdi
+                    title="Lowongan PKL"
+                    icon={undefined}
+                    isActive={router.pathname === "/lowongan-pkl"}
+                    href="lowongan-pkl"
+                  />
                 </>
               )}
             </SidebarMenu>
