@@ -151,7 +151,11 @@ export const SidebarWrapper = () => {
                   <SidebarItemProdi
                     title="Lowongan PKL"
                     icon={undefined}
-                    isActive={router.pathname === "/lowongan-pkl"}
+                    isActive={
+                      router.pathname === "/lowongan-pkl" ||
+                      router.pathname === "/tambah-lowongan-pkl" ||
+                      router.pathname === "/edit-lowongan-pkl"
+                    }
                     href="lowongan-pkl"
                   />
                 </>

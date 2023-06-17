@@ -68,7 +68,7 @@ export const HapusLowonganPkl = ({ data }) => {
           <Button color="error" onPress={confirmDelete}>
             Ya
           </Button>
-          <Button onPress={closeHandler}>Tidak</Button>
+          <Button color="success" onPress={closeHandler}>Tidak</Button>
         </Modal.Footer>
       </Modal>
     </div>
