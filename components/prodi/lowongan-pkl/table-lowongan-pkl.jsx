@@ -184,7 +184,7 @@ export const TableLowonganPkl = () => {
                   >
                     <Col css={{ d: "flex" }}>
                       <Tooltip content="Edit Lowongan PKL">
-                        <IconButton onClick={() => router.push('edit-lowongan-pkl')}>
+                        <IconButton onClick={() => handleEditClick(lowongan)}>
                           <Text
                             b
                             size={14}
