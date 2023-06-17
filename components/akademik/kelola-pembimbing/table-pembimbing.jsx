@@ -1,4 +1,4 @@
-import { Col, Row, Table, Text, Tooltip } from "@nextui-org/react";
+import { Col, Row, Table, Text, Tooltip, Loading } from "@nextui-org/react";
 import React, { useState, useEffect } from "react";
 import { Box } from "../../styles/box";
 import {HapusPembimbing} from './hapus-pembimbing';
@@ -10,10 +10,12 @@ import { useRouter } from 'next/router';
 export const TablePembimbing = () => {
   const [data, setData] = useState([]);
   const [serverError, setServerError] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
     const fetchData = async () => {
+      setIsLoading(true);
       try {
         const result = await axios.get(
           `${process.env.API_BASE_URL}/pembimbing/list`,
@@ -29,6 +31,7 @@ export const TablePembimbing = () => {
       } catch (error) {
         setServerError(true);
       }
+      setIsLoading(false);
     };
 
     fetchData();
@@ -55,6 +58,15 @@ export const TablePembimbing = () => {
       </>
     );
   }
+
+  if (isLoading) {
+    return (
+      <Box css={{ textAlign: 'center', flexDirection: 'column' }}>
+        <Loading size="xl" color="primary" />
+      </Box>
+    );
+  }
+
 
   return (
     <Box

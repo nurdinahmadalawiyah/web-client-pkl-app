@@ -1,4 +1,4 @@
-import { Table, Text, Row, Col, Tooltip, Button } from "@nextui-org/react";
+import { Table, Text, Row, Col, Tooltip, Loading } from "@nextui-org/react";
 import React, { useState, useEffect } from "react";
 import { Box } from "../../styles/box";
 import {HapusMahasiswa} from './hapus-mahasiswa';
@@ -10,10 +10,12 @@ import { useRouter } from 'next/router';
 export const TableMahasiswa = () => {
   const [data, setData] = useState([]);
   const [serverError, setServerError] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
     const fetchData = async () => {
+      setIsLoading(true);
       try {
         const result = await axios.get(
           `${process.env.API_BASE_URL}/mahasiswa/list`,
@@ -29,6 +31,7 @@ export const TableMahasiswa = () => {
       } catch (error) {
         setServerError(true);
       }
+      setIsLoading(false);
     };
 
     fetchData();
@@ -53,6 +56,14 @@ export const TableMahasiswa = () => {
           </Text>
         </Box>
       </>
+    );
+  }
+
+  if (isLoading) {
+    return (
+      <Box css={{ textAlign: 'center', flexDirection: 'column' }}>
+        <Loading size="xl" color="primary" />
+      </Box>
     );
   }
 

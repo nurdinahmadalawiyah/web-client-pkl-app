@@ -1,4 +1,4 @@
-import { Table, Text, Tooltip } from "@nextui-org/react";
+import { Table, Text, Tooltip, Loading } from "@nextui-org/react";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { IconButton } from "../../table/table.styled";
@@ -9,10 +9,12 @@ import { InfoCircle } from "react-iconly";
 const TablePengajuan = () => {
   const [data, setData] = useState([]);
   const [serverError, setServerError] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
     const fetchData = async () => {
+      setIsLoading(true);
       try {
         const result = await axios.get(
           `${process.env.API_BASE_URL}/pengajuan-pkl/akademik`,
@@ -28,6 +30,7 @@ const TablePengajuan = () => {
       } catch (error) {
         setServerError(true);
       }
+      setIsLoading(false);
     };
 
     fetchData();
@@ -46,6 +49,14 @@ const TablePengajuan = () => {
             Terjadi Kesalahan Pada Server
           </Text>
         </Box></>
+    );
+  }
+
+  if (isLoading) {
+    return (
+      <Box css={{ textAlign: 'center', flexDirection: 'column' }}>
+        <Loading size="xl" color="primary" />
+      </Box>
     );
   }
 
