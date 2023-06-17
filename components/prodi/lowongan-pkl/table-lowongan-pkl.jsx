@@ -196,7 +196,7 @@ export const TableLowonganPkl = () => {
                       </Tooltip>
                     </Col>
                     <Col css={{ d: "flex" }}>
-                      <HapusLowonganPkl />
+                      <HapusLowonganPkl data={lowongan} />
                     </Col>
                   </Row>
                 </Table.Cell>

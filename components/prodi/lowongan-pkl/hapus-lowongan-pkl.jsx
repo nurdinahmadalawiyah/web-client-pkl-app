@@ -28,7 +28,7 @@ export const HapusLowonganPkl = ({ data }) => {
     try {
       setIsLoading(true);
       await axios.delete(
-        `${process.env.API_BASE_URL}/lowongan-pkl/${data.id_lowongan}`,
+        `${process.env.API_BASE_URL}/lowongan-pkl/prodi/${data.id_lowongan}`,
         {
           headers: {
             Authorization: `Bearer ${userToken}`,
