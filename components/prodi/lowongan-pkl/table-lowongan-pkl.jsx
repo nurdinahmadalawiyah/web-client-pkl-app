@@ -121,8 +121,7 @@ export const TableLowonganPkl = () => {
         >
           <Table.Header>
             <Table.Column width={50}>No</Table.Column>
-            <Table.Column width={100}>Gambar</Table.Column>
-            <Table.Column width={150}>Posisi</Table.Column>
+            <Table.Column width={250}>Posisi</Table.Column>
             <Table.Column width={200}>Perusahaan</Table.Column>
             <Table.Column width={150}>Alamat</Table.Column>
             <Table.Column width={150}>Link</Table.Column>
@@ -137,22 +136,24 @@ export const TableLowonganPkl = () => {
                     {number++}
                   </Text>
                 </Table.Cell>
-                <Table.Cell>
-                  <div style={{ display: "inline-block" }}>
-                    <Image
-                      src={lowongan.gambar}
-                      alt={lowongan.nama_perusahaan}
-                      objectFit="cover"
-                      width={50}
-                      height={50}
-                      css={{ borderRadius: "10px" }}
-                    />
+                <Table.Cell style={{ display: "flex", alignItems: "center" }}>
+                  <div style={{ display: "flex", alignItems: "center" }}>
+                    <div style={{ marginRight: "20px" }}>
+                      <Image
+                        src={lowongan.gambar}
+                        alt={lowongan.nama_perusahaan}
+                        objectFit="cover"
+                        width={50}
+                        height={50}
+                        css={{ borderRadius: "10px" }}
+                      />
+                    </div>
+                    <div style={{ textAlign: "left" }}>
+                      <Text b size={12} css={{ tt: "capitalize", color: "$accents7" }}>
+                        {lowongan.posisi}
+                      </Text>
+                    </div>
                   </div>
-                </Table.Cell>
-                <Table.Cell>
-                  <Text b size={12} css={{ tt: "capitalize", color: "$accents7" }}>
-                    {lowongan.posisi}
-                  </Text>
                 </Table.Cell>
                 <Table.Cell>
                   <Text b size={12} css={{ color: "$accents7" }}>

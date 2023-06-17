@@ -25,7 +25,13 @@ export const AktivitasIndustri = ({ data }) => {
         </Grid>
         <Grid xs={6}>
           <Text size="$md" color="white">
-            : {data.bidang_usaha_jasa}
+            :{" "}
+            {data.bidang_usaha_jasa && data.bidang_usaha_jasa.split("\n").map((paragraph, index) => (
+              <React.Fragment key={index}>
+                <span>&#8226; {paragraph}</span>
+                <br />
+              </React.Fragment>
+            ))}
           </Text>
         </Grid>
         <Grid xs={6}>
