@@ -3,22 +3,19 @@ import {
   Text,
   Card,
   Spacer,
-  Loading,
   Button,
-  Tooltip,
   Modal,
+  Loading,
 } from "@nextui-org/react";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Box } from "../../styles/box";
 import { Flex } from "../../styles/flex";
 import axios from "axios";
 import { InfoCircle, TickSquare } from "react-iconly";
 import { useRouter } from "next/router";
 
-export const FormEditPembimbingProdi = () => {
+export const FormInputPembimbingProdi = () => {
   const router = useRouter();
-  const { pembimbing } = router.query;
-  const [idPembimbing, setIdPembimbing] = useState("");
   const [nama, setNama] = useState("");
   const [nik, setNik] = useState("");
   const [username, setUsername] = useState("");
@@ -30,16 +27,6 @@ export const FormEditPembimbingProdi = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [showModalSuccess, setShowModalSuccess] = useState(false);
   const [showModalError, setShowModalError] = useState(false);
-
-  useEffect(() => {
-    if (pembimbing) {
-      const parsedPembimbing = JSON.parse(pembimbing);
-      setIdPembimbing(parsedPembimbing.id_pembimbing);
-      setNama(parsedPembimbing.nama);
-      setNik(parsedPembimbing.nik);
-      setUsername(parsedPembimbing.username);
-    }
-  }, [pembimbing]);
 
   const handleNamaChange = (event) => {
     setNama(event.target.value);
@@ -58,12 +45,11 @@ export const FormEditPembimbingProdi = () => {
   };
 
   const handleInput = async () => {
-    if (nama === "" || nik === "" || username === "") {
+    if (nama === "" || nik === "" || username === "" || password === "") {
       setNamaError(nama === "" ? "Nama tidak boleh kosong" : "");
       setNikError(nik === "" ? "NIK/NIP tidak boleh kosong" : "");
       setUsernameError(username === "" ? "Username tidak boleh kosong" : "");
-    } else if (password !== "" && password.length < 8) {
-      setPasswordError("Password minimal harus 8 karakter");
+      setPasswordError(password === "" ? "Password tidak boleh kosong" : "");
     } else {
       setNamaError("");
       setNikError("");
@@ -74,7 +60,7 @@ export const FormEditPembimbingProdi = () => {
 
       try {
         const result = await axios.post(
-          `${process.env.API_BASE_URL}/pembimbing/update/${idPembimbing}?_method=PUT`,
+          `${process.env.API_BASE_URL}/pembimbing/add/prodi`,
           {
             username,
             nama,
@@ -100,9 +86,9 @@ export const FormEditPembimbingProdi = () => {
   };
 
   const handleModalSuccess = () => {
-    setShowModalSuccess(false);
-    router.push("/kelola--pembimbing-prodi");
-  };
+    setShowModalSuccess(false)
+    router.push('/kelola-pembimbing-prodi')
+  }
 
   return (
     <Box
@@ -113,7 +99,7 @@ export const FormEditPembimbingProdi = () => {
       }}
     >
       <Text h3 css={{ ml: 10 }}>
-        Edit Data Pembimbing
+        Tambah Data Pembimbing
       </Text>
       <Flex
         css={{
@@ -135,7 +121,7 @@ export const FormEditPembimbingProdi = () => {
             <Input
               size="lg"
               bordered
-              color="primary"
+              color="success"
               value={nama}
               onChange={handleNamaChange}
               labelPlaceholder="Nama"
@@ -145,7 +131,7 @@ export const FormEditPembimbingProdi = () => {
             <Input
               size="lg"
               bordered
-              color="primary"
+              color="success"
               value={nik}
               onChange={handleNikChange}
               labelPlaceholder="NIK/NIP"
@@ -155,32 +141,30 @@ export const FormEditPembimbingProdi = () => {
             <Input
               size="lg"
               bordered
-              color="primary"
+              color="success"
               value={username}
               onChange={handleUsernameChange}
               labelPlaceholder="Username"
             />
             {usernameError && <Text color="error">{usernameError}</Text>}
             <Spacer y={1.6} />
-            <Tooltip content={ "Kosongkan Form Password jika tidak akan memperbarui password"}>
             <Input.Password
               size="lg"
               bordered
-              color="primary"
+              color="success"
               value={password}
               onChange={handlePasswordChange}
               labelPlaceholder="Password"
-              width="375px"
             />
-            </Tooltip>
             {passwordError && <Text color="error">{passwordError}</Text>}
           </Card.Body>
         </Card>
       </Flex>
       <Spacer y={1.6} />
-      <Button auto onPress={handleInput} disabled={isLoading} css={{ ml: 10 }}>
+      <Button auto color="success" onPress={handleInput} disabled={isLoading} css={{ ml: 10 }}>
         {isLoading ? <Loading color="currentColor" size="sm" /> : "Simpan"}
       </Button>
+
       {showModalSuccess && (
         <Modal
           title="Sukses"
@@ -192,10 +176,10 @@ export const FormEditPembimbingProdi = () => {
             <TickSquare set="bold" primaryColor="green" size={100} />
           </Modal.Header>
           <Modal.Body css={{ textAlign: "center" }}>
-            <Text size={20}>Data pembimbing berhasil diperbarui.</Text>
+            <Text size={20}>Data pembimbing berhasil disimpan.</Text>
           </Modal.Body>
           <Modal.Footer css={{ justifyContent: "center" }}>
-            <Button color="primary" onPress={handleModalSuccess}>
+            <Button color="success" onPress={handleModalSuccess}>
               Tutup
             </Button>
           </Modal.Footer>
@@ -213,11 +197,11 @@ export const FormEditPembimbingProdi = () => {
           </Modal.Header>
           <Modal.Body css={{ textAlign: "center" }}>
             <Text size={20}>
-              Terjadi kesalahan saat memperbarui data pembimbing.
+              Terjadi kesalahan saat menyimpan data pembimbing.
             </Text>
           </Modal.Body>
           <Modal.Footer css={{ justifyContent: "center" }}>
-            <Button color="primary" onPress={() => setShowModalError(false)}>
+            <Button color="success" onPress={() => setShowModalError(false)}>
               Tutup
             </Button>
           </Modal.Footer>

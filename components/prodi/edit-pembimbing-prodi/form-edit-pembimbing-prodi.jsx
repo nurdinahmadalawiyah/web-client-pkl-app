@@ -74,7 +74,7 @@ export const FormEditPembimbingProdi = () => {
 
       try {
         const result = await axios.post(
-          `${process.env.API_BASE_URL}/pembimbing/update/${idPembimbing}?_method=PUT`,
+          `${process.env.API_BASE_URL}/pembimbing/update/prodi/${idPembimbing}?_method=PUT`,
           {
             username,
             nama,
@@ -101,7 +101,7 @@ export const FormEditPembimbingProdi = () => {
 
   const handleModalSuccess = () => {
     setShowModalSuccess(false);
-    router.push("/kelola--pembimbing-prodi");
+    router.push("/kelola-pembimbing-prodi");
   };
 
   return (
@@ -135,7 +135,7 @@ export const FormEditPembimbingProdi = () => {
             <Input
               size="lg"
               bordered
-              color="primary"
+              color="success"
               value={nama}
               onChange={handleNamaChange}
               labelPlaceholder="Nama"
@@ -145,7 +145,7 @@ export const FormEditPembimbingProdi = () => {
             <Input
               size="lg"
               bordered
-              color="primary"
+              color="success"
               value={nik}
               onChange={handleNikChange}
               labelPlaceholder="NIK/NIP"
@@ -155,7 +155,7 @@ export const FormEditPembimbingProdi = () => {
             <Input
               size="lg"
               bordered
-              color="primary"
+              color="success"
               value={username}
               onChange={handleUsernameChange}
               labelPlaceholder="Username"
@@ -166,7 +166,7 @@ export const FormEditPembimbingProdi = () => {
             <Input.Password
               size="lg"
               bordered
-              color="primary"
+              color="success"
               value={password}
               onChange={handlePasswordChange}
               labelPlaceholder="Password"
@@ -178,7 +178,7 @@ export const FormEditPembimbingProdi = () => {
         </Card>
       </Flex>
       <Spacer y={1.6} />
-      <Button auto onPress={handleInput} disabled={isLoading} css={{ ml: 10 }}>
+      <Button auto color="success" onPress={handleInput} disabled={isLoading} css={{ ml: 10 }}>
         {isLoading ? <Loading color="currentColor" size="sm" /> : "Simpan"}
       </Button>
       {showModalSuccess && (
@@ -195,7 +195,7 @@ export const FormEditPembimbingProdi = () => {
             <Text size={20}>Data pembimbing berhasil diperbarui.</Text>
           </Modal.Body>
           <Modal.Footer css={{ justifyContent: "center" }}>
-            <Button color="primary" onPress={handleModalSuccess}>
+            <Button color="success" onPress={handleModalSuccess}>
               Tutup
             </Button>
           </Modal.Footer>
@@ -217,7 +217,7 @@ export const FormEditPembimbingProdi = () => {
             </Text>
           </Modal.Body>
           <Modal.Footer css={{ justifyContent: "center" }}>
-            <Button color="primary" onPress={() => setShowModalError(false)}>
+            <Button color="success" onPress={() => setShowModalError(false)}>
               Tutup
             </Button>
           </Modal.Footer>
