@@ -16,6 +16,7 @@ import { IconButton } from "../../table/table.styled";
 import { useRouter } from "next/router";
 import { Box } from "../../styles/box";
 import { HapusLowonganPkl } from "./hapus-lowongan-pkl";
+import { ScrappingDataLowongan } from "./scrapping-data-lowongan";
 import { InfoCircle } from "react-iconly";
 import axios from "axios";
 
@@ -93,11 +94,7 @@ export const TableLowonganPkl = () => {
             </Button>
           </Tooltip>
           <Spacer x={0.4} />
-          <Tooltip content="Scrapping Data Lowongan PKL dari Internet">
-            <Button color="success" auto>
-              Scrapping Data
-            </Button>
-          </Tooltip>
+            <ScrappingDataLowongan />
         </Grid>
       </Grid.Container>
       <Box
@@ -121,7 +118,7 @@ export const TableLowonganPkl = () => {
         >
           <Table.Header>
             <Table.Column width={50}>No</Table.Column>
-            <Table.Column width={250}>Posisi</Table.Column>
+            <Table.Column width={200}>Posisi</Table.Column>
             <Table.Column width={200}>Perusahaan</Table.Column>
             <Table.Column width={150}>Alamat</Table.Column>
             <Table.Column width={150}>Link</Table.Column>
@@ -136,8 +133,8 @@ export const TableLowonganPkl = () => {
                     {number++}
                   </Text>
                 </Table.Cell>
-                <Table.Cell style={{ display: "flex", alignItems: "center" }}>
-                  <div style={{ display: "flex", alignItems: "center" }}>
+                <Table.Cell style={{ display: "flex", alignItems: "center", maxWidth: "200px", whiteSpace: "pre-wrap" }}>
+                  <div style={{ display: "flex", alignItems: "center", maxWidth: "200px", whiteSpace: "pre-wrap" }}>
                     <div style={{ marginRight: "20px" }}>
                       <Image
                         src={lowongan.gambar}
