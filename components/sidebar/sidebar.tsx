@@ -159,6 +159,34 @@ export const SidebarWrapper = () => {
                     }
                     href="lowongan-pkl"
                   />
+                  <CollapseItems
+                    icon={undefined}
+                    items={[
+                      // eslint-disable-next-line react/jsx-key
+                      <SidebarItemProdi
+                        title="Mahasiswa"
+                        icon={undefined}
+                        isActive={
+                          router.pathname === "/kelola-mahasiswa-prodi" ||
+                          router.pathname === "/tambah-mahasiswa-prodi" ||
+                          router.pathname === "/edit-mahasiswa-prodi"
+                        }
+                        href="/kelola-mahasiswa-prodi"
+                      />,
+                      // eslint-disable-next-line react/jsx-key
+                      <SidebarItemProdi
+                        title="Pembimbing"
+                        icon={undefined}
+                        isActive={
+                          router.pathname === "/kelola-pembimbing-prodi" ||
+                          router.pathname === "/tambah-pembimbing-prodi" ||
+                          router.pathname === "/edit-pembimbing-prodi"
+                        }
+                        href="/kelola-pembimbing-prodi"
+                      />,
+                    ]}
+                    title="Kelola User"
+                  />
                 </>
               )}
             </SidebarMenu>
