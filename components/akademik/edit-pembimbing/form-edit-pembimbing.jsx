@@ -15,7 +15,7 @@ import axios from "axios";
 import { InfoCircle, TickSquare } from "react-iconly";
 import { useRouter } from "next/router";
 
-export const FormEditPembimbingProdi = () => {
+export const FormEditPembimbing = () => {
   const router = useRouter();
   const { pembimbing } = router.query;
   const [idPembimbing, setIdPembimbing] = useState("");
@@ -101,7 +101,7 @@ export const FormEditPembimbingProdi = () => {
 
   const handleModalSuccess = () => {
     setShowModalSuccess(false);
-    router.push("/kelola--pembimbing-prodi");
+    router.push("/kelola-pembimbing");
   };
 
   return (

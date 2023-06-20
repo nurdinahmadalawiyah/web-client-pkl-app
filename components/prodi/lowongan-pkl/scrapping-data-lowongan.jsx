@@ -56,7 +56,7 @@ export const ScrappingDataLowongan = () => {
   };
 
   const confirmSaveData = async () => {
-    setIsLoading(true);
+    // setIsLoading(true);
     try {
       await handleSaveData();
       setVisible(false);

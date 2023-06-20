@@ -7,7 +7,7 @@ import {
     Crumb,
     CrumbLink,
 } from "../../breadcrumb/breadcrumb.styled";
-import {FormEditPembimbing} from "./form-edit-pembimbing"
+import { FormEditPembimbing } from "./form-edit-pembimbing"
 import { useRouter } from 'next/router';
 
 export const EditPembimbing = () => {
