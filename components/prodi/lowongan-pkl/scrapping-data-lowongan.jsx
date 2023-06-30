@@ -29,9 +29,11 @@ export const ScrappingDataLowongan = () => {
   }, []);
 
   useEffect(() => {
-    fetchData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    if (visible) {
+      fetchData();
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [visible]);
 
   const fetchData = async () => {
     setIsLoading(true);
@@ -56,14 +58,14 @@ export const ScrappingDataLowongan = () => {
   };
 
   const confirmSaveData = async () => {
-    // setIsLoading(true);
+    setIsLoading(true);
     try {
       await handleSaveData();
       setVisible(false);
     } catch (error) {
       console.log(error);
     }
-    // setIsLoading(false);
+    setIsLoading(false);
   };
   
 

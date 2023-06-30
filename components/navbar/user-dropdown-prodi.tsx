@@ -30,10 +30,11 @@ export const UserDropdownProdi = () => {
       });
       localStorage.removeItem("role");
       localStorage.removeItem("accessToken");
-      window.location.href = "/login-prodi";
+
     } catch (error) {
       console.error("Logout error:", error);
     }
+    window.location.href = "/login-prodi";
   };
 
   const cancelLogout = () => {
