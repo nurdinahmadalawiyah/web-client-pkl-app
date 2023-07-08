@@ -22,6 +22,7 @@ import axios from "axios";
 
 export const TableLowonganPkl = () => {
   const [data, setData] = useState([]);
+  const [profil, setProfil] = useState();
   const [serverError, setServerError] = useState(false);
   const [number, setNumber] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
@@ -48,7 +49,26 @@ export const TableLowonganPkl = () => {
       setIsLoading(false);
     };
 
+    const fetchProfileData = async () => {
+      try {
+        const result = await axios.get(
+          `${process.env.API_BASE_URL}/prodi/me`,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+            },
+          }
+        );
+        setProfil(result.data);
+        console.log(result.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
     fetchData();
+    fetchProfileData();
   }, []);
 
   const handleEditClick = (lowongan) => {
@@ -87,15 +107,17 @@ export const TableLowonganPkl = () => {
         <Grid xs={6}>
           <Text h3>Data Lowongan</Text>
         </Grid>
-        <Grid xs={6} justify="end" gap={2}>
-          <Tooltip content="Tambah Data Lowongan PKL">
-            <Button color="neutral" auto onPress={() => router.push('tambah-lowongan-pkl')}>
-              Tambah
-            </Button>
-          </Tooltip>
-          <Spacer x={0.4} />
-            <ScrappingDataLowongan />
-        </Grid>
+          <Grid xs={6} justify="end" gap={2}>
+            <Tooltip content="Tambah Data Lowongan PKL">
+              <Button color="neutral" auto onPress={() => router.push('tambah-lowongan-pkl')}>
+                Tambah
+              </Button>
+            </Tooltip>
+            {
+              profil?.kode_prodi === "IF" && (
+                <><Spacer x={0.4} /><ScrappingDataLowongan /></>
+            )}
+          </Grid>
       </Grid.Container>
       <Box
         css={{
