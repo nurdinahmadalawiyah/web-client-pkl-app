@@ -30,7 +30,6 @@ export const UserDropdownProdi = () => {
       });
       localStorage.removeItem("role");
       localStorage.removeItem("accessToken");
-
     } catch (error) {
       console.error("Logout error:", error);
     }

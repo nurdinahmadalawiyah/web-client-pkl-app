@@ -30,10 +30,10 @@ export const UserDropdown = () => {
       });
       localStorage.removeItem("role");
       localStorage.removeItem("accessToken");
-      window.location.href = "/login-akademik";
     } catch (error) {
       console.error("Logout error:", error);
     }
+    window.location.href = "/login-akademik";
   };
 
   const cancelLogout = () => {
