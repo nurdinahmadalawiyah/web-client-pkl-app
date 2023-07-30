@@ -24,6 +24,9 @@ function MyApp({ Component, pageProps }: AppProps) {
   useEffect(() => {
     OneSignalReact.init({
       appId: "87cf8313-c7f7-420a-b2dd-fbf5a3e29513",
+      notifyButton: {
+         enable: true,
+       },
     });
   }, []);
 
