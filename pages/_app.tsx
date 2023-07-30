@@ -3,6 +3,7 @@ import type {AppProps} from 'next/app';
 import {createTheme, NextUIProvider} from '@nextui-org/react';
 import {ThemeProvider as NextThemesProvider} from 'next-themes';
 import {Layout} from '../components/layout/layout';
+import { useEffect } from 'react';
 
 const lightTheme = createTheme({
    type: 'light',
@@ -19,6 +20,24 @@ const darkTheme = createTheme({
 });
 
 function MyApp({Component, pageProps}: AppProps) {
+   useEffect(() => {
+      if (typeof window !== undefined) {
+         window.OneSignal = window.OneSignal || [];
+         OneSignal.push(function () {
+            OneSignal.init({
+               appId: "87cf8313-c7f7-420a-b2dd-fbf5a3e29513",
+               notifyButton: {
+                  enable: true,
+               },
+            });
+         });
+      }
+
+      return () => {
+         window.OneSignal = undefined;
+      };
+   }, []);
+
    return (
       <NextThemesProvider
          defaultTheme="light"
