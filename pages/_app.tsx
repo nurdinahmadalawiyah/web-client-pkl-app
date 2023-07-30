@@ -44,21 +44,27 @@ function MyApp({ Component, pageProps }: AppProps) {
   }, []);
 
   useEffect(() => {
-   if (playerId) {
-     const data = { notification_id: playerId };
-     axios.post(`${process.env.API_BASE_URL}/save-player-id/?_method=PUT`, data, {
-       headers: {
-         "Content-Type": "application/json",
-       },
-     })
-     .then((response) => {
-      console.log("Player ID berhasil disimpan:", response.data);
-    })
-    .catch((error) => {
-      console.error("Error saat menyimpan Player ID:", error);
-    });
-   }
- }, [playerId]);
+    if (playerId) {
+      axios
+        .post(
+          `${process.env.API_BASE_URL}akademik/save-player-id/?_method=PUT`,
+          {
+            notification_id: playerId,
+          },
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        )
+        .then((response) => {
+          console.log("Player ID berhasil disimpan:", response.data);
+        })
+        .catch((error) => {
+          console.error("Error saat menyimpan Player ID:", error);
+        });
+    }
+  }, [playerId]);
 
   return (
     <NextThemesProvider
