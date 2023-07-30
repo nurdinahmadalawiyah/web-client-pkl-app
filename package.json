@@ -20,7 +20,8 @@
       "react-apexcharts": "^1.4.0",
       "react-dom": "18.2.0",
       "react-filepond": "^7.1.2",
-      "react-iconly": "^2.2.10"
+      "react-iconly": "^2.2.10",
+      "react-onesignal": "^2.0.4"
    },
    "devDependencies": {
       "@types/node": "18.7.18",
