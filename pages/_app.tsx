@@ -47,7 +47,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     if (playerId) {
       axios
         .post(
-          `${process.env.API_BASE_URL}akademik/save-player-id/?_method=PUT`,
+          `${process.env.API_BASE_URL}/akademik/save-player-id/?_method=PUT`,
           {
             notification_id: playerId,
           },
