@@ -5,6 +5,7 @@ import { ThemeProvider as NextThemesProvider } from "next-themes";
 import { Layout } from "../components/layout/layout";
 import { useEffect, useState } from "react";
 import OneSignalReact from "react-onesignal";
+import axios from "axios";
 
 const lightTheme = createTheme({
   type: "light",
@@ -45,13 +46,17 @@ function MyApp({ Component, pageProps }: AppProps) {
   useEffect(() => {
    if (playerId) {
      const data = { notification_id: playerId };
-     fetch(`${process.env.API_BASE_URL}/save-player-id/?_method=PUT`, {
-       method: "POST",
-       body: JSON.stringify(data),
+     axios.post(`${process.env.API_BASE_URL}/save-player-id/?_method=PUT`, data, {
        headers: {
          "Content-Type": "application/json",
        },
-     });
+     })
+     .then((response) => {
+      console.log("Player ID berhasil disimpan:", response.data);
+    })
+    .catch((error) => {
+      console.error("Error saat menyimpan Player ID:", error);
+    });
    }
  }, [playerId]);
 
