@@ -3,6 +3,7 @@ import {Flex} from '../../styles/flex';
 import { Box } from '../../styles/box';
 import { CardWelcomeAkademik } from './card-welcome-akademik';
 import { useRouter } from 'next/router';
+import OneSignalReact from 'react-onesignal';
 
 export const DashboardAkademik = () => {
    const router = useRouter();
@@ -15,6 +16,10 @@ export const DashboardAkademik = () => {
          router.push('/login-akademik');
       }
    })
+
+   useEffect(() => {
+      OneSignalReact.showNativePrompt();
+    }, []);
 
    return (
       <Flex
