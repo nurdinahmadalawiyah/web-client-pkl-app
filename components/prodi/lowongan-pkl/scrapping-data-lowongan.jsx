@@ -32,7 +32,7 @@ export const ScrappingDataLowongan = () => {
     if (visible) {
       fetchData();
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [visible]);
 
   const fetchData = async () => {
@@ -67,7 +67,6 @@ export const ScrappingDataLowongan = () => {
     }
     setIsLoading(false);
   };
-  
 
   const handleSaveData = async () => {
     try {
@@ -90,31 +89,35 @@ export const ScrappingDataLowongan = () => {
         </Button>
       </Tooltip>
       <Modal
-      closeButton
-      preventClose
+        closeButton
+        preventClose
         width="1000px"
         aria-labelledby="modal-title"
         open={visible}
         onClose={closeHandler}
       >
-        <Modal.Header css={{ textAlign: "center" }}>
-          <Grid.Container gap={2}>
-            <Grid xs={6}>
-              <Text h4 align="start">Hasil Scrapping Data Lowongan PKL dari Prosple.com</Text>
-            </Grid>
-            <Grid xs={6} justify="end" gap={2}>
-              <Tooltip content="Tambah Data Lowongan PKL">
-                <Button
-                  icon={<PaperDownload set="bold" />}
-                  color="success"
-                  onPress={confirmSaveData}
-                >
-                  Simpan Data
-                </Button>
-              </Tooltip>
-            </Grid>
-          </Grid.Container>
-        </Modal.Header>
+        {isLoading ? null : (
+          <Modal.Header css={{ textAlign: "center" }}>
+            <Grid.Container gap={2}>
+              <Grid xs={6}>
+                <Text h4 align="start">
+                  Hasil Scrapping Data Lowongan PKL dari Prosple.com
+                </Text>
+              </Grid>
+              <Grid xs={6} justify="end" gap={2}>
+                <Tooltip content="Tambah Data Lowongan PKL">
+                  <Button
+                    icon={<PaperDownload set="bold" />}
+                    color="success"
+                    onPress={confirmSaveData}
+                  >
+                    Simpan Data
+                  </Button>
+                </Tooltip>
+              </Grid>
+            </Grid.Container>
+          </Modal.Header>
+        )}
         <Modal.Body css={{ justifyContent: "center" }}>
           {isLoading ? (
             <Box css={{ textAlign: "center", flexDirection: "column" }}>
