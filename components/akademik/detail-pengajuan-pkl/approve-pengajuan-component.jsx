@@ -38,7 +38,7 @@ export const ApprovePengajuanComponent = ({ data }) => {
       </Button>
     </Tooltip>
   ) : (
-    <Button color="success" auto disabled={isLoading} onClick={handleApprove}>
+    <Button color="success" auto disabled={isLoading} onPress={handleApprove}>
       {isLoading ? <Loading color="currentColor" size="sm" /> : "Setujui"}
     </Button>
   ));
