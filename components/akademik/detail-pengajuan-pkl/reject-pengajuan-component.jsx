@@ -44,7 +44,7 @@ export const RejectPengajuanComponent = ({ data }) => {
       </Button>
     </Tooltip>
   ) : (
-    <Button color="error" auto disabled={isLoading} onClick={handleReject}>
+    <Button color="error" auto disabled={isLoading} onPress={handleReject}>
       {isLoading ? <Loading color="currentColor" size="sm" /> : "Tolak"}
     </Button>
   );
