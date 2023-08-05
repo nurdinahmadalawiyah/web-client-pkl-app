@@ -14,20 +14,20 @@ export const ContentBiodataIndustri = () => {
   const [data, setData] = useState({});
 
   const router = useRouter();
-  const { id_biodata_industri } = router.query;
+  const { id_mahasiswa } = router.query;
 
   useEffect(() => {
-    if (id_biodata_industri) {
+    if (id_mahasiswa) {
       fetchData();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [id_biodata_industri]);
+  }, [id_mahasiswa]);
 
 
     const fetchData = async () => {
       try {
         const result = await axios.get(
-          `${process.env.API_BASE_URL}/biodata-industri/prodi/detail/${id_biodata_industri}`,
+          `${process.env.API_BASE_URL}/biodata-industri/prodi/detail/${id_mahasiswa}`,
           {
             headers: {
               "Content-Type": "application/json",

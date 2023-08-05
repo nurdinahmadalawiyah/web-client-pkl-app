@@ -14,7 +14,7 @@ export const CardLaporanPkl = ({data}) => {
   };
 
   const handleClick = () => {
-    if (data.id_mahasiswa && data.id_biodata_industri) {
+    if (data.id_mahasiswa) {
       router.push(
         `/laporan-pkl?id_mahasiswa=${data.id_mahasiswa}`
       );
