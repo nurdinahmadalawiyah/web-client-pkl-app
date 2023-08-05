@@ -68,11 +68,12 @@ export const FormEditNilai = () => {
       setIsLoading(true);
 
       try {
+        console.log(data)
         const result = await axios.post(
           `${process.env.API_BASE_URL}/penilaian-prodi/prodi`,
           {
             id_mahasiswa: idMahasiswa ? idMahasiswa : id_mahasiswa,
-            id_tempat_pkl: idTempatPkl ? idMahasiswa : id_tempat_pkl,
+            id_tempat_pkl: idTempatPkl ? idTempatPkl : id_tempat_pkl,
             presentasi,
             dokumen,
           },
@@ -96,7 +97,7 @@ export const FormEditNilai = () => {
 
   const handleModalSuccess = () => {
     setShowModalSuccess(false);
-    router.push(`/detail-nilai-pkl?id_mahasiswa=${idMahasiswa ? idMahasiswa : id_mahasiswa}&id_tempat_pkl=${idTempatPkl ? idTempatPkl : id_tempat_pkl}`);
+    router.push(`/detail-nilai-pkl?id_mahasiswa=${idMahasiswa ? idMahasiswa : id_mahasiswa}&nama_mahasiswa=${namaMahasiswa ? namaMahasiswa : nama_mahasiswa}&id_tempat_pkl=${idTempatPkl ? idTempatPkl : id_tempat_pkl}`);
   };
 
   return (
