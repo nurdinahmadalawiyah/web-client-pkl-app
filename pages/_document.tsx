@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-title-in-document-head */
 import React from "react";
 import Document, {
   Html,
@@ -29,6 +30,7 @@ class MyDocument extends Document {
           rel="stylesheet"
         />
         <Head>
+          <title>PKL TEDC</title>
           {CssBaseline.flush()}
           <script
             defer
