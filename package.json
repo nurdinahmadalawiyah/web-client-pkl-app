@@ -14,6 +14,7 @@
       "axios": "^1.4.0",
       "date-fns": "^2.30.0",
       "filepond-plugin-image-preview": "^4.6.11",
+      "luxon": "^3.4.0",
       "next": "12.3.0",
       "next-themes": "^0.2.1",
       "react": "18.2.0",
@@ -24,6 +25,7 @@
       "react-onesignal": "^2.0.4"
    },
    "devDependencies": {
+      "@types/luxon": "^3.3.1",
       "@types/node": "18.7.18",
       "@types/react": "18.0.20",
       "@types/react-dom": "18.0.6",

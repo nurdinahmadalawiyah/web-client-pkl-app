@@ -2,8 +2,7 @@ import { Card, Text, Grid } from "@nextui-org/react";
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import axios from "axios";
-import { id } from "date-fns/locale/id";
-import { parseISO, format } from "date-fns";
+import { DateTime } from "luxon";
 
 export const ContentLaporanPkl = () => {
   const [serverError, setServerError] = useState(false);
@@ -48,9 +47,7 @@ export const ContentLaporanPkl = () => {
           {data.tanggal_upload ? (
             <Text color="#B9B9B9">
               Di Upload pada tanggal{" "}
-              {format(parseISO(data.tanggal_upload), "dd MMMM yyyy", {
-                locale: id,
-              })}
+              {DateTime.fromISO(data.tanggal_upload).setLocale('id').toFormat('dd MMMM yyyy')}
             </Text>
           ) : (
             ""
