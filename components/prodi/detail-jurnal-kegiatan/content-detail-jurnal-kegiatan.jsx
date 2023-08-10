@@ -1,8 +1,7 @@
 import { Card, Text, Spacer, Grid, Loading } from "@nextui-org/react";
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import { id } from "date-fns/locale/id";
-import { parseISO, format } from "date-fns";
+import { DateTime } from "luxon";
 
 export const ContentDetailJurnalKegiatan = () => {
   const router = useRouter();
@@ -39,9 +38,9 @@ export const ContentDetailJurnalKegiatan = () => {
             >
               <Card.Body>
                 <Text b size="$md" color='white'>
-                  {format(parseISO(kegiatan.tanggal), "EEEE, dd MMMM yyyy", {
-                    locale: id,
-                  })}
+                  <Text b size="$md" color='white'>
+                    {DateTime.fromISO(kegiatan.tanggal).setLocale('id').toFormat('EEEE, dd MMMM yyyy')}
+                  </Text>
                 </Text>
                 <Spacer y={0.3} />
                 <Text size="$md" color='white'>
