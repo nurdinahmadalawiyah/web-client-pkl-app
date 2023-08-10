@@ -41,6 +41,12 @@ function MyApp({ Component, pageProps }: AppProps) {
         });
       }
     });
+
+    OneSignalReact.getUserId().then((userId?: string | null) => {
+      if (userId) {
+        setPlayerId(userId)
+      }
+    });
   }, []);
 
   useEffect(() => {
