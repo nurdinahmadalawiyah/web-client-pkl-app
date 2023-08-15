@@ -1,4 +1,4 @@
-import { Card, Text, Spacer } from "@nextui-org/react";
+import { Card, Text, Spacer, Loading } from "@nextui-org/react";
 import React, { useState, useEffect } from "react";
 import { Flex } from "../../styles/flex";
 import { Box } from "../../styles/box";
@@ -12,6 +12,7 @@ import { useRouter } from "next/router";
 export const ContentBiodataIndustri = () => {
   const [serverError, setServerError] = useState(false);
   const [data, setData] = useState({});
+  const [isLoading, setIsLoading] = useState(true);
 
   const router = useRouter();
   const { id_mahasiswa } = router.query;
@@ -37,9 +38,11 @@ export const ContentBiodataIndustri = () => {
         );
         setData(result.data.data);
         console.log(result.data.data);
+        setIsLoading(false);
       } catch (error) {
         console.log(error);
         setServerError(true);
+        setIsLoading(false); 
       }
     };
 
@@ -53,6 +56,16 @@ export const ContentBiodataIndustri = () => {
           <Text b size={20} css={{ tt: "capitalize", color: "$accents8" }}>
             Terjadi Kesalahan Pada Server
           </Text>
+        </Box>
+      </div>
+    );
+  }
+
+  if (isLoading) {
+    return (
+      <div css={{ m: "$10" }}>
+        <Box css={{ textAlign: "center", flexDirection: "column" }}>
+          <Loading size="xl" color="success" />
         </Box>
       </div>
     );

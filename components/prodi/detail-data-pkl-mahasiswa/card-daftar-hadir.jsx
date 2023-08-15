@@ -1,4 +1,5 @@
-import { Card, Text, Modal } from "@nextui-org/react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import { Card, Text, Modal, Loading } from "@nextui-org/react";
 import React, { useState, useEffect } from "react";
 import { Box } from "../../styles/box";
 import { Paper, InfoSquare } from "react-iconly";
@@ -9,6 +10,7 @@ export const CardDaftarHadir = ({ data }) => {
   const router = useRouter();
   const [getData, setGetData] = useState([]);
   const [visible, setVisible] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   const closeHandler = () => {
     setVisible(false);
@@ -28,6 +30,8 @@ export const CardDaftarHadir = ({ data }) => {
       setGetData(result.data.data);
     } catch (error) {
       console.log(error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -39,13 +43,15 @@ export const CardDaftarHadir = ({ data }) => {
     if (getData.length === 0) {
       setVisible(true);
     } else {
-      router.push(`/daftar-hadir?id_mahasiswa=${data.id_mahasiswa}&nama_mahasiswa=${data.nama_mahasiswa}`);
+      router.push(
+        `/daftar-hadir?id_mahasiswa=${data.id_mahasiswa}&nama_mahasiswa=${data.nama_mahasiswa}`
+      );
     }
-  }
+  };
 
   return (
     <Card
-      isPressable
+      isPressable={!isLoading}
       isHoverable
       css={{
         bg: "#F31260",
@@ -56,14 +62,20 @@ export const CardDaftarHadir = ({ data }) => {
       onPress={handleClick}
     >
       <Card.Body>
-        <Box css={{ textAlign: "center" }}>
-          <Paper set="bold" primaryColor="white" size={100} />
-        </Box>
-        <Box css={{ textAlign: "center" }}>
-          <Text size={16} b color="white">
-            Daftar Hadir
-          </Text>
-        </Box>
+        {isLoading ? (
+          <Loading size="xl" color="white" />
+        ) : (
+          <>
+            <Box css={{ textAlign: "center" }}>
+              <Paper set="bold" primaryColor="white" size={100} />
+            </Box>
+            <Box css={{ textAlign: "center" }}>
+              <Text size={16} b color="white">
+                Daftar Hadir
+              </Text>
+            </Box>
+          </>
+        )}
       </Card.Body>
       <Modal
         width="500px"
@@ -75,10 +87,10 @@ export const CardDaftarHadir = ({ data }) => {
           <InfoSquare set="bold" primaryColor="orange" size={100} />
         </Modal.Header>
         <Modal.Body css={{ textAlign: "center" }}>
-            <Text size={20}>
-              {data.nama_mahasiswa}
-              <br></br> Belum Membuat Dokumen Daftar Hadir
-            </Text>
+          <Text size={20}>
+            {data.nama_mahasiswa}
+            <br></br> Belum Membuat Dokumen Daftar Hadir
+          </Text>
         </Modal.Body>
       </Modal>
     </Card>
