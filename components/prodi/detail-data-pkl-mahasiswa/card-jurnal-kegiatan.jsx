@@ -1,4 +1,5 @@
-import { Card, Text, Modal } from "@nextui-org/react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import { Card, Text, Modal, Loading } from "@nextui-org/react";
 import React, { useState, useEffect } from "react";
 import { Box } from "../../styles/box";
 import { Activity } from "react-iconly";
@@ -10,6 +11,7 @@ export const CardJurnalKegiatan = ({ data }) => {
   const router = useRouter();
   const [getData, setGetData] = useState([]);
   const [visible, setVisible] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   const closeHandler = () => {
     setVisible(false);
@@ -29,6 +31,8 @@ export const CardJurnalKegiatan = ({ data }) => {
       setGetData(result.data.data);
     } catch (error) {
       console.log(error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -46,7 +50,7 @@ export const CardJurnalKegiatan = ({ data }) => {
 
   return (
     <Card
-      isPressable
+      isPressable={!isLoading}
       isHoverable
       css={{
         bg: "#9750DD",
@@ -57,14 +61,20 @@ export const CardJurnalKegiatan = ({ data }) => {
       onPress={handleClick}
     >
       <Card.Body>
-        <Box css={{ textAlign: "center" }}>
-          <Activity set="bold" primaryColor="white" size={100} />
-        </Box>
-        <Box css={{ textAlign: "center" }}>
-          <Text size={16} b color="white">
-            Jurnal Kegiatan
-          </Text>
-        </Box>
+        {isLoading ? (
+          <Loading size="xl" color="white" />
+        ) : (
+          <>
+            <Box css={{ textAlign: "center" }}>
+              <Activity set="bold" primaryColor="white" size={100} />
+            </Box>
+            <Box css={{ textAlign: "center" }}>
+              <Text size={16} b color="white">
+                Jurnal Kegiatan
+              </Text>
+            </Box>
+          </>
+        )}
       </Card.Body>
       <Modal
         width="500px"
@@ -76,10 +86,10 @@ export const CardJurnalKegiatan = ({ data }) => {
           <InfoSquare set="bold" primaryColor="orange" size={100} />
         </Modal.Header>
         <Modal.Body css={{ textAlign: "center" }}>
-            <Text size={20}>
-              {data.nama_mahasiswa}
-              <br></br> Belum Membuat Dokumen Jurnal Kegiatan
-            </Text>
+          <Text size={20}>
+            {data.nama_mahasiswa}
+            <br></br> Belum Membuat Dokumen Jurnal Kegiatan
+          </Text>
         </Modal.Body>
       </Modal>
     </Card>
