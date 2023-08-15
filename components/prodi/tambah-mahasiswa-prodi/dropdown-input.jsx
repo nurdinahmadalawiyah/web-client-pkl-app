@@ -10,6 +10,30 @@ export const DropdownInput = ({
   setSemester,
   handleSemesterChange,
 }) => {
+  const [data, setData] = useState([]);
+  const [serverError, setServerError] = useState(false);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const result = await axios.get(
+          `${process.env.API_BASE_URL}/prodi/list-by-prodi`,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+            },
+          }
+        );
+        setData(result.data.data);
+      } catch (error) {
+        setServerError(true);
+      }
+    };
+
+    fetchData();
+  }, []);
+  
   return (
     <Grid.Container>
       <Grid xs={6}>
@@ -29,7 +53,17 @@ export const DropdownInput = ({
             selectedKeys={prodi}
             onSelectionChange={setProdi}
           >
-            <Dropdown.Item key="1">Teknik Informatika</Dropdown.Item>
+            {serverError ? (
+              <Dropdown.Item key="Pilih Prodi">
+                <Text color="error">Gagal Memuat Data</Text>
+              </Dropdown.Item>
+            ) : (
+              data.map((prodi) => (
+                <Dropdown.Item key={prodi.id_prodi}>
+                  {prodi.id_prodi}. {prodi.nama_prodi}
+                </Dropdown.Item>
+              ))
+            )}
           </Dropdown.Menu>
         </Dropdown>
       </Grid>
