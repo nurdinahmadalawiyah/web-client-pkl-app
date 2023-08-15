@@ -1,4 +1,4 @@
-import { Card, Text, Spacer, Grid, Row } from "@nextui-org/react";
+import { Card, Text, Spacer, Grid, Row, Loading } from "@nextui-org/react";
 import React, { useState, useEffect } from "react";
 import { Box } from "../../styles/box";
 import { InfoCircle, ChevronRight } from "react-iconly";
@@ -8,6 +8,7 @@ import { useRouter } from "next/router";
 export const ContentJurnalKegiatan = () => {
   const [serverError, setServerError] = useState(false);
   const [data, setData] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   const router = useRouter();
   const { id_mahasiswa } = router.query;
@@ -32,9 +33,11 @@ export const ContentJurnalKegiatan = () => {
       );
       setData(result.data.data);
       console.log(result.data.data);
+      setIsLoading(false);
     } catch (error) {
       console.log(error);
       setServerError(true);
+      setIsLoading(false); 
     }
   };
 
@@ -52,6 +55,17 @@ export const ContentJurnalKegiatan = () => {
       </div>
     );
   }
+
+  if (isLoading) {
+    return (
+      <div css={{ m: "$10" }}>
+        <Box css={{ textAlign: "center", flexDirection: "column" }}>
+          <Loading size="xl" color="success" />
+        </Box>
+      </div>
+    );
+  }
+
 
   return (
     <Card.Body css={{ py: "$10" }}>

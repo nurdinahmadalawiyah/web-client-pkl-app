@@ -2,6 +2,7 @@ import { Card, Text, Spacer, Grid, Loading, Button } from "@nextui-org/react";
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { NilaiPembimbing } from "./nilai-pembimbing";
+import { Box } from "../../styles/box";
 import { NilaiProdi } from "./nilai-prodi";
 import { NilaiAkhir } from "./nilai-akhir";
 import axios from "axios";
@@ -9,6 +10,7 @@ import axios from "axios";
 export const ContentDetailNilaiPkl = () => {
   const [serverError, setServerError] = useState(false);
   const [data, setData] = useState({});
+  const [isLoading, setIsLoading] = useState(true);
 
   const router = useRouter();
   const { id_mahasiswa, nama_mahasiswa, id_tempat_pkl } = router.query;
@@ -33,9 +35,11 @@ export const ContentDetailNilaiPkl = () => {
       );
       setData(result.data.data);
       console.log(result.data.data);
+      setIsLoading(false);
     } catch (error) {
       console.log(error);
       setServerError(true);
+      setIsLoading(false); 
     }
   };
 
@@ -49,6 +53,16 @@ export const ContentDetailNilaiPkl = () => {
   const handleEditClickNullData = () => {
     router.push(`/edit-nilai?id_mahasiswa=${id_mahasiswa}&nama_mahasiswa=${nama_mahasiswa}&id_tempat_pkl=${id_tempat_pkl}`);
   };
+
+  if (isLoading) {
+    return (
+      <div css={{ m: "$10" }}>
+        <Box css={{ textAlign: "center", flexDirection: "column" }}>
+          <Loading size="xl" color="success" />
+        </Box>
+      </div>
+    );
+  }
 
   if (serverError) {
     return (
