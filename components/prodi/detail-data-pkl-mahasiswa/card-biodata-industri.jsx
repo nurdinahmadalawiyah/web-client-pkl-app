@@ -14,7 +14,7 @@ export const CardBiodataIndustri = ({ data }) => {
   };
 
   const handleClick = () => {
-    if (data.id_mahasiswa) {
+    if (data.id_mahasiswa && data.id_biodata_industri != null) {
       router.push(
         `/biodata-industri?id_mahasiswa=${data.id_mahasiswa}`
       );
