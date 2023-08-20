@@ -43,7 +43,7 @@ export const CatatanKhusus = () => {
           <Text>/</Text>
         </Crumb>
         <Crumb>
-          <CrumbLink>Biodata Industri</CrumbLink>
+          <CrumbLink>Catatan Khusus</CrumbLink>
         </Crumb>
       </Breadcrumbs>
       <Card css={{ borderRadius: "$xl", p: "$6" }}>
