@@ -145,6 +145,7 @@ export const SidebarWrapper = () => {
                       router.pathname === "/daftar-hadir" ||
                       router.pathname === "/detail-nilai-pkl" ||
                       router.pathname === "/edit-nilai" ||
+                      router.pathname === "/catatan-khusus" ||
                       router.pathname === "/laporan-pkl"
                     }
                     href="data-pkl-mahasiswa"
