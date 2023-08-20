@@ -9,6 +9,7 @@ import { CardJurnalKegiatan } from "./card-jurnal-kegiatan";
 import { CardDaftarHadir } from "./card-daftar-hadir";
 import { CardNilaiPkl } from "./card-nilai-pkl";
 import { CardLaporanPkl } from "./card-laporan-pkl";
+import { CardCatatanKhusus } from "./card-catatan-khusus";
 
 export const ContentDetailDataPklMahasiwa = () => {
   const router = useRouter();
@@ -86,7 +87,23 @@ export const ContentDetailDataPklMahasiwa = () => {
             <CardBiodataIndustri data={dataState} />
             <CardJurnalKegiatan data={dataState} />
             <CardNilaiPkl data={dataState} />
+          </Flex>
+          <Spacer y={1} />
+          <Flex
+            css={{
+              gap: "$10",
+              flexWrap: "wrap",
+              ml: "$10",
+              mr: "$10",
+              justifyContent: "center",
+              "@sm": {
+                flexWrap: "nowrap",
+              },
+            }}
+            direction={"row"}
+          >
             <CardDaftarHadir data={dataState} />
+            <CardCatatanKhusus data={dataState} />
             <CardLaporanPkl data={dataState} />
           </Flex>
         </>
