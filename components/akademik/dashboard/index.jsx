@@ -1,12 +1,14 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import {Flex} from '../../styles/flex';
 import { Box } from '../../styles/box';
 import { CardWelcomeAkademik } from './card-welcome-akademik';
 import { useRouter } from 'next/router';
 import OneSignalReact from 'react-onesignal';
+import { CardTotalMahasiswa } from "./card-total-mahasiswa";
 
 export const DashboardAkademik = () => {
    const router = useRouter();
+   const [data, setData] = useState();
 
    useEffect(() => {
       const accessToken = localStorage.getItem('accessToken');
@@ -17,8 +19,28 @@ export const DashboardAkademik = () => {
       }
    })
 
+     const fetchData = async () => {
+    try {
+      const response = await axios.get(
+        `${process.env.API_BASE_URL}/tempat-pkl/prodi/data`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          },
+        }
+      );
+      setData(response.data.data)
+      console.log(response.data.data);
+      console.log(data.total_mahasiswa);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
    useEffect(() => {
       OneSignalReact.showNativePrompt();
+      fetchData();
     }, []);
 
    return (
@@ -45,9 +67,24 @@ export const DashboardAkademik = () => {
                         flexWrap: 'nowrap',
                      },
                   }}
-                  direction={'row'}
+                  direction={'column'}
                >
                   <CardWelcomeAkademik />
+                  <Flex
+                  css={{
+                     gap: "$10",
+                     flexWrap: "wrap",
+                     justifyContent: "center",
+                     "@sm": {
+                       flexWrap: "nowrap",
+                     },
+                   }}
+                   direction={"row"}>
+                     <CardTotalMahasiswa data={data}/>
+                     <CardTotalMahasiswa data={data}/>
+                     <CardTotalMahasiswa data={data}/>
+                     <CardTotalMahasiswa data={data}/>
+                  </Flex>
                </Flex>
             </Box>
       </Flex>

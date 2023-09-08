@@ -1,5 +1,15 @@
 import React, { useEffect } from "react";
-import { Card, Text, Table } from "@nextui-org/react";
+import {
+  Card,
+  Text,
+  Table,
+  Grid,
+  Dropdown,
+  Button,
+  Tooltip,
+  Row,
+  Spacer
+} from "@nextui-org/react";
 import { Flex } from "../../styles/flex";
 import { Box } from "../../styles/box";
 import Link from "next/link";
@@ -13,6 +23,12 @@ import { TableDataPklMahasiswa } from "./table-data-pkl-mahasiswa";
 
 export const DataPklMahasiswa = () => {
   const router = useRouter();
+  const [selected, setSelected] = React.useState(new Set(["2019/2020"]));
+
+  const selectedValue = React.useMemo(
+    () => Array.from(selected).join(", ").replaceAll("_", " "),
+    [selected]
+  );
 
   useEffect(() => {
     const accessToken = localStorage.getItem("accessToken");
@@ -47,16 +63,45 @@ export const DataPklMahasiswa = () => {
           <CrumbLink>List</CrumbLink>
         </Crumb>
       </Breadcrumbs>
-      <Text h3>Data PKL Mahasiswa</Text>
+      <Grid.Container>
+        <Grid xs={9}>
+          <Text h3>Data PKL Mahasiswa</Text>
+        </Grid>
+        <Grid xs={3}>
+          <Row css={{ alignItems: "center" }}>
+            <Text h5>Tahun Akademik : </Text>
+            <Dropdown>
+              <Dropdown.Button flat color="success" css={{ tt: "capitalize", marginLeft: "auto" }}>
+                {selectedValue}
+              </Dropdown.Button>
+              <Dropdown.Menu
+                aria-label="Single selection actions"
+                color="success"
+                disallowEmptySelection
+                selectionMode="single"
+                selectedKeys={selected}
+                onSelectionChange={setSelected}
+              >
+                <Dropdown.Item key="2019/2020">2019/2020</Dropdown.Item>
+                <Dropdown.Item key="2020/2021">2020/2021</Dropdown.Item>
+                <Dropdown.Item key="2021/2022">2021/2022</Dropdown.Item>
+                <Dropdown.Item key="2022/2023">2022/2023</Dropdown.Item>
+                <Dropdown.Item key="2023/2024">2023/2024</Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
+          </Row>
+        </Grid>
+      </Grid.Container>
       <Card
         css={{
           borderRadius: "$xl",
           px: "$6",
-          mb: "$10" 
+          mb: "$10",
+          mt: "$6"
         }}
       >
         <Card.Body css={{ py: "$10" }}>
-            <TableDataPklMahasiswa />
+          <TableDataPklMahasiswa />
         </Card.Body>
       </Card>
     </Flex>
