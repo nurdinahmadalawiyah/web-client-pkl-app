@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Card,
   Text,
@@ -8,7 +8,7 @@ import {
   Button,
   Tooltip,
   Row,
-  Spacer
+  Spacer,
 } from "@nextui-org/react";
 import { Flex } from "../../styles/flex";
 import { Box } from "../../styles/box";
@@ -20,15 +20,13 @@ import {
 } from "../../breadcrumb/breadcrumb.styled";
 import { useRouter } from "next/router";
 import { TableDataPklMahasiswa } from "./table-data-pkl-mahasiswa";
+import axios from "axios";
 
 export const DataPklMahasiswa = () => {
   const router = useRouter();
-  const [selected, setSelected] = React.useState(new Set(["2019/2020"]));
-
-  const selectedValue = React.useMemo(
-    () => Array.from(selected).join(", ").replaceAll("_", " "),
-    [selected]
-  );
+  const [data, setData] = useState([]);
+  const [selectedValue, setSelectedValue] = useState("2022/2023");
+  const [serverError, setServerError] = useState(false);
 
   useEffect(() => {
     const accessToken = localStorage.getItem("accessToken");
@@ -38,6 +36,34 @@ export const DataPklMahasiswa = () => {
       router.push("/login-prodi");
     }
   });
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const result = await axios.get(
+          `${process.env.API_BASE_URL}/tempat-pkl/prodi/tahun-akademik`,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization:  `Bearer ${localStorage.getItem("accessToken")}`,
+            },
+          }
+        );
+        setData(result.data.data);
+        console.log(result.data.data);
+      } catch (error) {
+        setServerError(true);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  const handleDropdownChange = (newValue) => {
+    const firstValue = [...newValue][0];
+    setSelectedValue(firstValue);
+    console.log("Selected value changed to:", firstValue);
+  };
 
   return (
     <Flex
@@ -71,7 +97,11 @@ export const DataPklMahasiswa = () => {
           <Row css={{ alignItems: "center" }}>
             <Text h5>Tahun Akademik : </Text>
             <Dropdown>
-              <Dropdown.Button flat color="success" css={{ tt: "capitalize", marginLeft: "auto" }}>
+              <Dropdown.Button
+                flat
+                color="success"
+                css={{ tt: "capitalize", marginLeft: "auto" }}
+              >
                 {selectedValue}
               </Dropdown.Button>
               <Dropdown.Menu
@@ -79,14 +109,20 @@ export const DataPklMahasiswa = () => {
                 color="success"
                 disallowEmptySelection
                 selectionMode="single"
-                selectedKeys={selected}
-                onSelectionChange={setSelected}
-              >
-                <Dropdown.Item key="2019/2020">2019/2020</Dropdown.Item>
-                <Dropdown.Item key="2020/2021">2020/2021</Dropdown.Item>
-                <Dropdown.Item key="2021/2022">2021/2022</Dropdown.Item>
-                <Dropdown.Item key="2022/2023">2022/2023</Dropdown.Item>
-                <Dropdown.Item key="2023/2024">2023/2024</Dropdown.Item>
+                selectedKeys={selectedValue}
+                onSelectionChange={handleDropdownChange}
+              > 
+                {serverError ? (
+                  <Dropdown.Item key={tahun.tahun_akademik}>
+                    <Text color="error">Gagal Memuat Data</Text>
+                  </Dropdown.Item>
+                ) : (
+                  data.map((tahun) => (
+                    <Dropdown.Item key={tahun.tahun_akademik}>
+                      {tahun.tahun_akademik}
+                    </Dropdown.Item>
+                  ))
+                )}
               </Dropdown.Menu>
             </Dropdown>
           </Row>
@@ -97,11 +133,11 @@ export const DataPklMahasiswa = () => {
           borderRadius: "$xl",
           px: "$6",
           mb: "$10",
-          mt: "$6"
+          mt: "$6",
         }}
       >
         <Card.Body css={{ py: "$10" }}>
-          <TableDataPklMahasiswa />
+          <TableDataPklMahasiswa selectedValue={selectedValue} />
         </Card.Body>
       </Card>
     </Flex>

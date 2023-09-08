@@ -6,7 +6,7 @@ import { Box } from "../../styles/box";
 import { useRouter } from 'next/router';
 import { InfoCircle } from "react-iconly";
 
-export const TableDataPklMahasiswa = () => {
+export const TableDataPklMahasiswa = ({selectedValue}) => {
   const [data, setData] = useState([]);
   const [serverError, setServerError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -17,7 +17,7 @@ export const TableDataPklMahasiswa = () => {
       setIsLoading(true);
       try {
         const result = await axios.get(
-          `${process.env.API_BASE_URL}/tempat-pkl/prodi`,
+          `${process.env.API_BASE_URL}/tempat-pkl/prodi?tahun_akademik=${selectedValue}`,
           {
             headers: {
               "Content-Type": "application/json",
@@ -34,7 +34,7 @@ export const TableDataPklMahasiswa = () => {
     };
 
     fetchData();
-  }, []);
+  }, [selectedValue]);
 
   const handleDetailClick = (data) => {
     router.push({
