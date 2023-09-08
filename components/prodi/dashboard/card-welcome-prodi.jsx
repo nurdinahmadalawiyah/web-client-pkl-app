@@ -12,7 +12,7 @@ export const CardWelcomeProdi = () => {
          }}
       >
          <Card.Body css={{py: '$10'}}>
-            <Text css={{color: 'white', textAlign: 'center', fontSize: '64px', fontWeight: 'bold'}}>
+            <Text css={{color: 'white', textAlign: 'center', fontSize: '54px', fontWeight: 'bold'}}>
                   Selamat Datang di Dashboard Prodi<br />
                   Aplikasi Peraktik Kerja Lapangan<br />
                   Politeknik TEDC Bandung

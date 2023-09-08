@@ -3,7 +3,6 @@ import {
   Text,
   Card,
   Spacer,
-  Dropdown,
   Button,
   Loading,
   Modal,
@@ -22,7 +21,7 @@ export const FormInputMahasiswa = () => {
   const [nama, setNama] = useState("");
   const [nim, setNim] = useState("");
   const [prodi, setProdi] = useState("Pilih Prodi");
-  const [semester, setSemester] = useState("Pilih Semester");
+  const [tahunMasuk, setTahunMasuk] = useState("");
   const [nomorHp, setNomorHp] = useState("");
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
@@ -30,7 +29,7 @@ export const FormInputMahasiswa = () => {
   const [namaError, setNamaError] = useState("");
   const [nimError, setNimError] = useState("");
   const [prodiError, setProdiError] = useState("");
-  const [semesterError, setSemesterError] = useState("");
+  const [tahunMasukError, setTahunMasukError] = useState("");
   const [usernameError, setUsernameError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -50,13 +49,12 @@ export const FormInputMahasiswa = () => {
     [prodi]
   );
 
-  const handleSemesterChange = React.useMemo(
-    () => Array.from(semester).join("").replaceAll("_", " "),
-    [semester]
-  );
-
   const handleNomorHpChange = (event) => {
     setNomorHp(event.target.value);
+  };
+
+  const handleTahunMasukChange = (event) => {
+    setTahunMasuk(event.target.value);
   };
 
   const handleEmailChange = (event) => {
@@ -76,15 +74,15 @@ export const FormInputMahasiswa = () => {
       nama === "" ||
       nim === "" ||
       prodi === "Pilih Prodi" ||
-      semester === "Pilih Semester" ||
+      tahunMasuk === "" ||
       username === "" ||
       password === ""
     ) {
       setNamaError(nama === "" ? "Nama tidak boleh kosong" : "");
       setNimError(nim === "" ? "NIM tidak boleh kosong" : "");
       setProdiError(prodi === "Pilih Prodi" ? "Silakan pilih Prodi" : "");
-      setSemesterError(
-        semester === "Pilih Semester" ? "Silakan pilih Semester" : ""
+      setTahunMasukError(
+        tahunMasuk === "" ? "Tahun Masuk tidak boleh kosong" : ""
       );
       setUsernameError(username === "" ? "Username tidak boleh kosong" : "");
       setPasswordError(username === "" ? "Password tidak boleh kosong" : "");
@@ -94,7 +92,7 @@ export const FormInputMahasiswa = () => {
       setNamaError("");
       setNimError("");
       setProdiError("");
-      setSemesterError("");
+      setTahunMasukError("");
       setUsernameError("");
       setPasswordError("");
 
@@ -108,7 +106,7 @@ export const FormInputMahasiswa = () => {
             nama,
             nim,
             prodi: handleProdiChange,
-            semester: handleSemesterChange,
+            tahun_masuk: tahunMasuk,
             email,
             nomor_hp: nomorHp,
             password,
@@ -194,20 +192,32 @@ export const FormInputMahasiswa = () => {
               labelPlaceholder="Nomor HP"
             />
             <Spacer y={1.6} />
-            <DropdownInput
-              prodi={prodi}
-              setProdi={setProdi}
-              handleProdiChange={handleProdiChange}
-              semester={semester}
-              setSemester={setSemester}
-              handleSemesterChange={handleSemesterChange}
-            />
+            <Grid.Container>
+              <Grid xs={6}>
+              <DropdownInput
+                prodi={prodi}
+                setProdi={setProdi}
+                handleProdiChange={handleProdiChange}
+              />
+              </Grid>
+              <Grid xs={6}>
+              <Input
+                size="lg"
+                bordered
+                color="primary"
+                type="number"
+                value={tahunMasuk}
+                onChange={handleTahunMasukChange}
+                labelPlaceholder="Tahun Masuk"
+              />
+              </Grid>
+            </Grid.Container>
             <Grid.Container>
               <Grid xs={6}>
                 {prodiError && <Text color="error">{prodiError}</Text>}
               </Grid>
               <Grid xs={6}>
-                {semesterError && <Text color="error">{semesterError}</Text>}
+                {tahunMasukError && <Text color="error">{tahunMasukError}</Text>}
               </Grid>
             </Grid.Container>
           </Card.Body>

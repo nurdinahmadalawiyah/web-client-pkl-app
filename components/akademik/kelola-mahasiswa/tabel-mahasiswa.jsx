@@ -7,7 +7,7 @@ import axios from "axios";
 import { InfoCircle } from "react-iconly";
 import { useRouter } from 'next/router';
 
-export const TableMahasiswa = () => {
+export const TableMahasiswa = ({selectedValue}) => {
   const [data, setData] = useState([]);
   const [serverError, setServerError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -18,11 +18,11 @@ export const TableMahasiswa = () => {
       setIsLoading(true);
       try {
         const result = await axios.get(
-          `${process.env.API_BASE_URL}/mahasiswa/list`,
+          `${process.env.API_BASE_URL}/mahasiswa/list?tahun_masuk=${selectedValue.toString()}`,
           {
             headers: {
               "Content-Type": "application/json",
-              Authorization:  `Bearer ${localStorage.getItem("accessToken")}`,
+              Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
             },
           }
         );
@@ -35,7 +35,7 @@ export const TableMahasiswa = () => {
     };
 
     fetchData();
-  }, []);
+  }, [selectedValue]);
 
   const handleEditClick = (mahasiswa) => {
     router.push({
