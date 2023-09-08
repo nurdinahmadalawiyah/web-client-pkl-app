@@ -23,7 +23,7 @@ export const CardMahasiswaMengajukanPkl = ({data}) => {
             <Spacer y={2} />
             <Row css={{ textAlign: "center", width: "100%" }}>
               <Text b size={28} css={{ tt: "capitalize", width: "100%" }}>
-              {data && data.mahasiswa_sedang_pkl ? `${data.mahasiswa_sedang_pkl} Orang` : <Loading size="xl" color="success" />}
+              {data && data.mahasiswa_sudah_mengajukan ? `${data.mahasiswa_sudah_mengajukan} Orang` : <Loading size="xl" color="success" />}
               </Text>
             </Row>
           </Col>

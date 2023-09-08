@@ -2,7 +2,7 @@ import { Card, Text, Col, Row, Spacer, Loading} from "@nextui-org/react";
 import { Flex } from "../../styles/flex";
 import React  from "react";
 
-export const CardTotalMahasiswa = ({data}) => {
+export const CardMahasiswaMengajukan = ({data}) => {
   return (
     <Card
       css={{
@@ -17,14 +17,14 @@ export const CardTotalMahasiswa = ({data}) => {
           <Col>
             <Row>
               <Text b size={20} css={{ tt: "capitalize", textAlign: "center", width: "100%" }}>
-                Total Mahasiswa Politeknik TEDC Bandung
+                Mahasiswa Yang Sudah Mengajukan PKL
               </Text>
             </Row>
             <Spacer y={2} />
             <Row css={{ textAlign: "center", width: "100%" }}>
               <Text b size={28} css={{ tt: "capitalize", width: "100%" }}>
-                {data && data.total_mahasiswa !== null && data.total_mahasiswa !== undefined
-                  ? `${data.total_mahasiswa} Orang`
+                {data && data.mahasiswa_sudah_mengajukan !== null && data.mahasiswa_sudah_mengajukan !== undefined
+                  ? `${data.mahasiswa_sudah_mengajukan} Orang`
                   : <Loading size="xl" color="primary" />
                 }
               </Text>

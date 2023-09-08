@@ -17,7 +17,7 @@ export const CardTotalMahasiswaProdi = ({data}) => {
           <Col>
             <Row>
               <Text b size={20} css={{ tt: "capitalize", textAlign: "center", width: "100%" }}>
-                Total Mahasiswa Prodi Teknik Informatika
+                Total Mahasiswa Prodi {data && data.prodi ? `${data.prodi} ` :  ``}
               </Text>
             </Row>
             <Spacer y={2} />
