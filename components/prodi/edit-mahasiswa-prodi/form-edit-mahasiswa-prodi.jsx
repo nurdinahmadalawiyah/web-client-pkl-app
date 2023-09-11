@@ -24,7 +24,7 @@ export const FormEditMahasiswaProdi = () => {
   const [nama, setNama] = useState("");
   const [nim, setNim] = useState("");
   const [prodi, setProdi] = useState("Pilih Prodi");
-  const [semester, setSemester] = useState("Pilih Semester");
+  const [tahunMasuk, setTahunMasuk] = useState("");
   const [nomorHp, setNomorHp] = useState("");
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
@@ -32,7 +32,7 @@ export const FormEditMahasiswaProdi = () => {
   const [namaError, setNamaError] = useState("");
   const [nimError, setNimError] = useState("");
   const [prodiError, setProdiError] = useState("");
-  const [semesterError, setSemesterError] = useState("");
+  const [tahunMasukError, setTahunMasukError] = useState("");
   const [usernameError, setUsernameError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -46,7 +46,7 @@ export const FormEditMahasiswaProdi = () => {
       setNama(parsedMahasiswa.nama);
       setNim(parsedMahasiswa.nim);
       setProdi(parsedMahasiswa.id_prodi.toString());
-      setSemester(parsedMahasiswa.semester);
+      setTahunMasuk(parsedMahasiswa.tahun_masuk);
       setNomorHp(parsedMahasiswa.nomor_hp);
       setEmail(parsedMahasiswa.email);
       setUsername(parsedMahasiswa.username);
@@ -69,16 +69,12 @@ export const FormEditMahasiswaProdi = () => {
     }
   }, [prodi]);
 
-  const handleSemesterChange = React.useMemo(() => {
-    if (semester && typeof semester !== "undefined") {
-      return Array.from(semester).join("").replaceAll("_", " ");
-    } else {
-      return "";
-    }
-  }, [semester]);
-
   const handleNomorHpChange = (event) => {
     setNomorHp(event.target.value);
+  };
+
+  const handleTahunMasukChange = (event) => {
+    setTahunMasuk(event.target.value);
   };
 
   const handleEmailChange = (event) => {
@@ -98,14 +94,14 @@ export const FormEditMahasiswaProdi = () => {
       nama === "" ||
       nim === "" ||
       prodi === "Pilih Prodi" ||
-      semester === "Pilih Semester" ||
+      tahunMasuk === "" ||
       username === ""
     ) {
       setNamaError(nama === "" ? "Nama tidak boleh kosong" : "");
       setNimError(nim === "" ? "NIM tidak boleh kosong" : "");
       setProdiError(prodi === "Pilih Prodi" ? "Silakan pilih Prodi" : "");
-      setSemesterError(
-        semester === "Pilih Semester" ? "Silakan pilih Semester" : ""
+      setTahunMasukError(
+        tahunMasuk === "" ? "Tahun Masuk tidak boleh kosong" : ""
       );
       setUsernameError(username === "" ? "Username tidak boleh kosong" : "");
     } else if (password !== "" && password.length < 8) {
@@ -114,7 +110,7 @@ export const FormEditMahasiswaProdi = () => {
       setNamaError("");
       setNimError("");
       setProdiError("");
-      setSemesterError("");
+      setTahunMasukError("");
       setUsernameError("");
       setPasswordError("");
 
@@ -128,7 +124,7 @@ export const FormEditMahasiswaProdi = () => {
             nama,
             nim,
             prodi: handleProdiChange,
-            semester: handleSemesterChange,
+            tahun_masuk: tahunMasuk,
             email,
             nomor_hp: nomorHp,
             password,
@@ -214,20 +210,34 @@ export const FormEditMahasiswaProdi = () => {
               labelPlaceholder="Nomor HP"
             />
             <Spacer y={1.6} />
-            <DropdownInput
-              prodi={prodi}
-              setProdi={setProdi}
-              handleProdiChange={handleProdiChange}
-              semester={semester}
-              setSemester={setSemester}
-              handleSemesterChange={handleSemesterChange}
-            />
+            <Grid.Container>
+              <Grid xs={6}>
+                <DropdownInput
+                  prodi={prodi}
+                  setProdi={setProdi}
+                  handleProdiChange={handleProdiChange}
+                />
+              </Grid>
+              <Grid xs={6}>
+                <Input
+                  size="lg"
+                  bordered
+                  color="success"
+                  type="number"
+                  value={tahunMasuk}
+                  onChange={handleTahunMasukChange}
+                  labelPlaceholder="Tahun Masuk"
+                />
+              </Grid>
+            </Grid.Container>
             <Grid.Container>
               <Grid xs={6}>
                 {prodiError && <Text color="error">{prodiError}</Text>}
               </Grid>
               <Grid xs={6}>
-                {semesterError && <Text color="error">{semesterError}</Text>}
+                {tahunMasukError && (
+                  <Text color="error">{tahunMasukError}</Text>
+                )}
               </Grid>
             </Grid.Container>
           </Card.Body>
@@ -259,20 +269,26 @@ export const FormEditMahasiswaProdi = () => {
             />
             {usernameError && <Text color="error">{usernameError}</Text>}
             <Spacer y={1.6} />
-              <Input.Password
-                size="lg"
-                bordered
-                color="success"
-                value={password}
-                onChange={handlePasswordChange}
-                labelPlaceholder="Password"
-              />
+            <Input.Password
+              size="lg"
+              bordered
+              color="success"
+              value={password}
+              onChange={handlePasswordChange}
+              labelPlaceholder="Password"
+            />
             {passwordError && <Text color="error">{passwordError}</Text>}
           </Card.Body>
         </Card>
       </Flex>
       <Spacer y={1.6} />
-      <Button auto color="success" onPress={handleInput} disabled={isLoading} css={{ ml: 10 }}>
+      <Button
+        auto
+        color="success"
+        onPress={handleInput}
+        disabled={isLoading}
+        css={{ ml: 10 }}
+      >
         {isLoading ? <Loading color="currentColor" size="sm" /> : "Simpan"}
       </Button>
 
