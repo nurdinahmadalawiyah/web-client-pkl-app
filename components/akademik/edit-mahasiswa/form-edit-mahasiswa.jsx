@@ -3,7 +3,6 @@ import {
   Text,
   Card,
   Spacer,
-  Tooltip,
   Grid,
   Modal,
   Loading,
